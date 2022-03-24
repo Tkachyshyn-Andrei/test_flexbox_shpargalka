@@ -4,16 +4,12 @@
       <div>
         <h1>Шпаргалка по Flexbox CSS</h1>
       </div>
-
-
-
-
       <div class="row">
         <div class="col-6 p-2">
           <h2>flex-direction</h2>
-          <div class="button d-flex justify-content-between">
+          <div class="button d-flex justify-content-between flex-wrap">
             <div v-for="styleName in flexDirection" :key="styleName.key"
-                 @click="setActiveStyle(styleName)"
+                 @click="setActiveClass(styleName)"
                  :class="{'active': styleName === activeClass}"
             >
               {{ styleName.label }}
@@ -22,7 +18,7 @@
           <div class="example-code">
             <code>.parent {<br>
               &nbsp;&nbsp;display: flex;<br>
-              &nbsp;&nbsp;<mark id="flex-dir1">flex-direction: row;</mark>
+              &nbsp;&nbsp;<mark>flex-direction: row;</mark>
               <br>
               &nbsp;&nbsp;height: 100%;<br>
               }</code>
@@ -66,9 +62,10 @@ export default {
     }
   },
   methods: {
-    setActiveStyle(styleName){
+    setActiveClass(styleName){
       this.activeClass = styleName;
-      console.log(styleName)
+      this.direction = styleName.label;
+      console.log()
     }
   }
 }
@@ -99,7 +96,7 @@ h2 {
 .button > div {
   border: 2px solid #4fc3f7;
   margin-bottom: 10px;
-  padding: 8px 20px;
+  padding: 8px 8px;
   cursor: pointer;
 }
 
