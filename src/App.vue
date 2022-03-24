@@ -7,19 +7,26 @@
       <div class="row">
         <div class="col-6 p-2">
           <h2>flex-direction</h2>
-          <div class="item d-flex">
-            <div>row</div>
-            <div>row-reverse</div>
-            <div>column</div>
-            <div>column-reverse</div>
+          <div class="button d-flex justify-content-between">
+            <div v-for="styleName in flexDirection" :key="styleName.key"
+                 @click="setActiveStyle(styleName)"
+                 :class="{'active': styleName === activeClass}"
+            >
+              {{ styleName.label }}
+            </div>
           </div>
-          <div class="example">
-
+          <div class="example-code">
+            <code>.parent {<br>
+              &nbsp;&nbsp;display: flex;<br>
+              &nbsp;&nbsp;<mark id="flex-dir1">flex-direction: row;</mark>
+              <br>
+              &nbsp;&nbsp;height: 100%;<br>
+              }</code>
           </div>
         </div>
         <div class="col-6 p-2">
           <div class="example">
-            <div class="parent">
+            <div class="parent" :style="style">
               <div class="child">1</div>
               <div class="child">2</div>
               <div class="child">3</div>
@@ -38,18 +45,28 @@ export default {
   name: 'App',
   components: {},
   data: () => ({
-    // className: '',
-    // activeClass: 'flex',
-    // display: [
-    //   {label: 'flex', key: 'flex'},
-    //   {label: 'inline-flex', key: 'inline-flex'},
-    // ]
+    activeClass: '',
+    direction: 'row',
+    flexDirection: [
+      {label: 'row'},
+      {label: 'row-reverse'},
+      {label: 'column'},
+      {label: 'column-reverse'},
+    ]
   }),
-  // methods: {
-  //   setActiveClass: function (className) {
-  //     this.activeClass = className;
-  //   }
-  // }
+  computed: {
+    style(){
+      return {
+        flexDirection: this.direction
+      }
+    }
+  },
+  methods: {
+    setActiveStyle(styleName){
+      this.activeClass = styleName;
+      console.log(styleName)
+    }
+  }
 }
 </script>
 
@@ -75,15 +92,22 @@ h2 {
   text-align: start;
 }
 
-.item > div {
+.button > div {
   border: 2px solid #4fc3f7;
-  margin-right: 10px;
   margin-bottom: 10px;
-  padding: 8px 20px
+  padding: 8px 20px;
+  cursor: pointer;
 }
 
 .example {
-  min-height: 155px;
+  border: 2px solid #4fc3f7;
+  padding: 10px;
+  display: flex;
+  height: 100%;
+  flex: 1;
+}
+
+.example-code {
   border: 2px solid #4fc3f7;
   padding: 10px;
 }
@@ -91,7 +115,8 @@ h2 {
 .parent {
   display: flex;
   border: 1px dotted #a6a6a6;
-  height: 240px;
+  height: 100%;
+  width: 100%;
 }
 
 .child {
@@ -103,4 +128,7 @@ h2 {
   text-align: center;
 }
 
+.active {
+  background: #d1dfe4;
+}
 </style>
