@@ -4,6 +4,10 @@
       <div>
         <h1>Шпаргалка по Flexbox CSS</h1>
       </div>
+
+
+
+
       <div class="row">
         <div class="col-6 p-2">
           <h2>flex-direction</h2>
