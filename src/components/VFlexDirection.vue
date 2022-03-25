@@ -75,8 +75,14 @@ export default {
     setActiveClass(styleName) {
       this.activeClass = styleName;
       this.direction = styleName.label;
-      console.log()
-    }
+      console.log(this.style)
+      console.log(this.kebabCase('flexDirection'))
+    },
+    kebabCase(str) {
+      return str.split('').map((letter, idx) => {
+        return letter.toUpperCase() === letter ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}` : letter;
+      }).join('');
+    },
   }
 }
 </script>
