@@ -1,55 +1,24 @@
 <template>
   <div class="container">
-    <div id="app">
-      <div>
-        <h1>Шпаргалка по Flexbox CSS</h1>
-      </div>
-      <div class="row">
-        <div class="col-6 p-2">
-          <h2>flex-direction</h2>
-          <div class="item d-flex">
-            <div>row</div>
-            <div>row-reverse</div>
-            <div>column</div>
-            <div>column-reverse</div>
-          </div>
-          <div class="example">
+    <h1>Шпаргалка по Grid CSS</h1>
+    <Item title="flex-direction" :items="displayItem" />
 
-          </div>
-        </div>
-        <div class="col-6 p-2">
-          <div class="example">
-            <div class="parent">
-              <div class="child">1</div>
-              <div class="child">2</div>
-              <div class="child">3</div>
-              <div class="child">4</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 
+import Item from "@/components/Item";
+
 export default {
   name: 'App',
-  components: {},
-  data: () => ({
-    // className: '',
-    // activeClass: 'flex',
-    // display: [
-    //   {label: 'flex', key: 'flex'},
-    //   {label: 'inline-flex', key: 'inline-flex'},
-    // ]
-  }),
-  // methods: {
-  //   setActiveClass: function (className) {
-  //     this.activeClass = className;
-  //   }
-  // }
+  components: {Item},
+  data() {
+    return {
+      displayItem: [ 'grid','inline-grid','subgrid' ]
+    }
+  },
+  methods: {}
 }
 </script>
 
@@ -82,25 +51,9 @@ h2 {
   padding: 8px 20px
 }
 
-.example {
-  min-height: 155px;
-  border: 2px solid #4fc3f7;
-  padding: 10px;
-}
 
-.parent {
-  display: flex;
-  border: 1px dotted #a6a6a6;
-  height: 240px;
-}
 
-.child {
-  min-width: 2.5rem;
-  padding: 0.5rem;
-  background-color: #97dffa;
-  background-repeat: no-repeat;
-  border: 1px solid #fff;
-  text-align: center;
-}
+
+
 
 </style>
