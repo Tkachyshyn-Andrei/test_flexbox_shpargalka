@@ -12,7 +12,7 @@
       </div>
       <div class="example-code code">
         selector
-        <code v-text="style">
+        <code v-text="showStyle">
         </code>
       </div>
     </div>
@@ -67,16 +67,31 @@ export default {
     style() {
       return {
         display: 'flex',
-        flexDirection: this.direction
+        [this.kebabCase('flexDirection')]: this.direction
       }
     },
+    showStyle:
+        function () {
+          return JSON.stringify(this.style).replace(',', '; ')
+      // const object = JSON.stringify(this.style);
+      // let str = ''; // начальное значение - пустые кавычки
+      // for (let property in object) {
+      //   // console.log(`${property}: ${object[property]}`);
+      //   // return object.replace(',', '; ');
+      //   return object.includes('{').
+      // // }
+      //
+      // // console.log(str)
+      // return str;
+    }
   },
   methods: {
     setActiveClass(styleName) {
       this.activeClass = styleName;
       this.direction = styleName.label;
-      console.log(this.style)
-      console.log(this.kebabCase('flexDirection'))
+      // console.log(this.style)
+      // console.log(JSON.stringify(this.style)[2])
+      // console.log({...this.style})
     },
     kebabCase(str) {
       return str.split('').map((letter, idx) => {
