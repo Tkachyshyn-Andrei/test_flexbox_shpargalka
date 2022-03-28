@@ -71,16 +71,8 @@ export default {
       }
     },
     showStyle() {
-      console.log(this.style)
-      // return `{\n  display: flex;\n ${this.style} ${this.direction}\n }`
-
       return Object.keys(this.style).reduce((acc, key) =>
-          acc + `\t` + key.split(/(?=[A-Z])/).join(`-`).toLowerCase() + `:` + this.style[key]
-          + `;\n`, `{\n`) + `}`;
-
-      // return Object.keys(this.style).reduce((acc, key) =>
-      //     acc + `\t` + key.split(/(?=[A-Z])/).join(`-`).toLowerCase() + `:` + this.style[key]
-      //     + `;\n`, `{\n`) + `}`;
+          `${acc} \t ${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()} : ${this.style[key]};\n`, `{\n`) + `}`
     }
   },
   methods: {
@@ -153,5 +145,4 @@ dl {
 dd {
   padding-left: 30px;
 }
-
 </style>
