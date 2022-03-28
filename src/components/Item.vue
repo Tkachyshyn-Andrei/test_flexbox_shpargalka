@@ -5,13 +5,14 @@
         <div class="col">
           <h2>{{ title }}</h2>
           <ul class="row d-flex m-0 p-0 text-center list-unstyled">
-            <li  class="col items p-1" v-for="item of items" @click="changeDisplay(item)">
+            <li  class="col items p-1" v-for="item of items" :key="item" @click="changeDisplay(item)">
               <p>{{item}}</p>
             </li>
           </ul>
         </div>
         <div class="col">
           <div class="example">
+            there text
             <div class="parent">
               <div class="col child">1</div>
               <div class="col child">2</div>
@@ -44,10 +45,9 @@ export default {
   },
   methods:{
     changeDisplay(item){
-      document.querySelector('.parent').classList.toggle('row')
+      document.querySelector('.parent').classList.toggle(item)
+    },
 
-      console.log(item)
-    }
   }
 }
 </script>
@@ -94,6 +94,7 @@ h2 {
   cursor: pointer;
 }
 .parent {
+
   grid-template:50px 50px 50px / 50px 50px 50px;
   border: 1px dotted #a6a6a6;
   height: 240px;
@@ -106,6 +107,32 @@ h2 {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   border: 1px solid #fff;
+}
+.grid{
+  display: grid;
+}
+.subgrid{
+  display: grid;
+  grid-template-columns: subgrid;
+}
+.inline-grid{
+  display: inline-grid;
+}
+.start{
+  display: grid;
+  justify-items: start;
+}
+.end{
+  display: grid;
+  justify-items: end;
+}
+.center{
+  display: grid;
+  justify-items: center;
+}
+.stretch{
+  display: grid;
+  justify-items: stretch;
 }
 
 </style>

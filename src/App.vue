@@ -2,7 +2,7 @@
   <div class="container">
     <h1>Шпаргалка по Grid CSS</h1>
     <Item title="flex-direction" :items="displayItem" />
-
+    <Item title="flex-direction" :items="justifyItem" />
   </div>
 </template>
 
@@ -15,10 +15,14 @@ export default {
   components: {Item},
   data() {
     return {
-      displayItem: [ 'grid','inline-grid','subgrid' ]
+      displayItem: [ 'grid','inline-grid','subgrid' ],
+      justifyItem: [ 'start','end','center','stretch' ],
+
     }
   },
-  methods: {}
+  methods:{
+
+  }
 }
 </script>
 
