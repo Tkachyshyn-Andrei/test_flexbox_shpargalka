@@ -12,7 +12,7 @@
       </div>
       <div class="example-code code">
         selector
-        <code v-text="showStyle">
+        <code style="white-space: pre" v-html="showStyle">
         </code>
       </div>
     </div>
@@ -67,37 +67,27 @@ export default {
     style() {
       return {
         display: 'flex',
-        [this.kebabCase('flexDirection')]: this.direction
+        flexDirection: this.direction,
       }
     },
-    showStyle:
-        function () {
-          return JSON.stringify(this.style).replace(',', '; ')
-      // const object = JSON.stringify(this.style);
-      // let str = ''; // начальное значение - пустые кавычки
-      // for (let property in object) {
-      //   // console.log(`${property}: ${object[property]}`);
-      //   // return object.replace(',', '; ');
-      //   return object.includes('{').
-      // // }
-      //
-      // // console.log(str)
-      // return str;
+    showStyle() {
+      console.log(this.style)
+      // return `{\n  display: flex;\n ${this.style} ${this.direction}\n }`
+
+      return Object.keys(this.style).reduce((acc, key) =>
+          acc + `\t` + key.split(/(?=[A-Z])/).join(`-`).toLowerCase() + `:` + this.style[key]
+          + `;\n`, `{\n`) + `}`;
+
+      // return Object.keys(this.style).reduce((acc, key) =>
+      //     acc + `\t` + key.split(/(?=[A-Z])/).join(`-`).toLowerCase() + `:` + this.style[key]
+      //     + `;\n`, `{\n`) + `}`;
     }
   },
   methods: {
     setActiveClass(styleName) {
       this.activeClass = styleName;
       this.direction = styleName.label;
-      // console.log(this.style)
-      // console.log(JSON.stringify(this.style)[2])
-      // console.log({...this.style})
-    },
-    kebabCase(str) {
-      return str.split('').map((letter, idx) => {
-        return letter.toUpperCase() === letter ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}` : letter;
-      }).join('');
-    },
+    }
   }
 }
 </script>
