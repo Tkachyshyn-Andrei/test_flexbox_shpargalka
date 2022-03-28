@@ -72,7 +72,7 @@ export default {
     },
     showStyle() {
       return Object.keys(this.style).reduce((acc, key) =>
-          `${acc} \t ${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()} : ${this.style[key]};\n`, `{\n`) + `}`
+          `${acc}\t${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()}: ${this.style[key]};\n`, `{\n`) + `}`
     }
   },
   methods: {
