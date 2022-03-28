@@ -7,7 +7,7 @@
              :class="{'active': styleName === activeClass}"
              @click="setActiveClass(styleName)"
         >
-          {{ styleName.label }}
+          {{ styleName }}
         </div>
       </div>
       <div class="example-code code">
@@ -54,10 +54,10 @@ export default {
     activeClass: '',
     direction: 'row',
     flexDirection: [
-      {label: 'row'},
-      {label: 'row-reverse'},
-      {label: 'column'},
-      {label: 'column-reverse'},
+      'row',
+      'row-reverse',
+      'column',
+      'column-reverse',
     ]
   }),
   created() {
@@ -78,7 +78,7 @@ export default {
   methods: {
     setActiveClass(styleName) {
       this.activeClass = styleName;
-      this.direction = styleName.label;
+      this.direction = styleName;
     }
   }
 }
