@@ -4,7 +4,9 @@
       <div>
         <h1>Шпаргалка по Flexbox CSS</h1>
       </div>
-      <VFlexDirection> </VFlexDirection>
+      <VFlexDirection/>
+      <hr>
+      <VFlexDirection1 property="display" value="123"/>
 
 
 
@@ -14,10 +16,11 @@
 
 <script>
 import VFlexDirection from "@/components/VFlexDirection";
+import VFlexDirection1 from "@/components/VFlexDirection1";
 
 export default {
   name: 'App',
-  components: { VFlexDirection },
+  components: {VFlexDirection, VFlexDirection1},
 }
 </script>
 

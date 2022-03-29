@@ -3,7 +3,7 @@
     <div class="col-6 p-2">
       <h2>flex-direction</h2>
       <div class="button d-flex justify-content-between flex-wrap">
-        <div v-for="styleName in flexDirection" :key="styleName.key"
+        <div v-for="styleName in value" :key="styleName"
              :class="{'active': styleName === activeClass}"
              @click="setActiveClass(styleName)"
         >
@@ -26,39 +26,19 @@
         </div>
       </div>
     </div>
-<!--    <div class="p-2 mb-5">-->
-<!--      <p>Властивість flex-direction задає напрямок основних осей у контейнері і цим визначає положення флексів у-->
-<!--        контейнері.</p>-->
-<!--      <dl>-->
-<!--        <dt>row</dt>-->
-<!--        <dd>Головна вісь спрямована так як і орієнтація тексту, за умовчанням зліва направо.</dd>-->
-<!--        <dt>row-reverse</dt>-->
-<!--        <dd>Схоже на значення row, але міняються місцями початкова та кінцева точки та головна вісь направлена з права-->
-<!--          наліво-->
-<!--        </dd>-->
-<!--        <dt>column</dt>-->
-<!--        <dd>Головна вісь розташована вертикально і спрямована зверху донизу.</dd>-->
-<!--        <dt>column-reverse</dt>-->
-<!--        <dd>Головна вісь розташовується вертикально, але змінюється положення початкової та кінцевої точок і вісь-->
-<!--          спрямована знизу нагору.-->
-<!--        </dd>-->
-<!--      </dl>-->
-<!--    </div>-->
   </div>
 </template>
 
 <script>
 export default {
-  name: "VFlexDirection",
+  name: "VFlexDirection1",
+  props:{
+    property: {},
+    value:{},
+  },
   data: () => ({
     activeClass: '',
     direction: 'row',
-    flexDirection: [
-      'row',
-      'row-reverse',
-      'column',
-      'column-reverse',
-    ]
   }),
   created() {
     this.activeClass = this.flexDirection[0]
