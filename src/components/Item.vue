@@ -1,25 +1,23 @@
 <template>
-  <div>
-    <div class="container">
-      <div class="row mb-3">
-        <h2>{{ title }}</h2>
-        <div class="col">
-          <ul class="row d-flex m-0 p-0 text-center list-unstyled">
-            <li class="items p-1" v-for="value of propertyValues" :key="value" @click="changeValue(value)">
-              {{ value }}
-            </li>
-          </ul>
-          <div>
-            <p>.example</p>
-            <p style="white-space: pre">.parent:{{ editParentString }}</p>
-            <p style="white-space: pre">.child:{{ editChildString }}</p>
-          </div>
+  <div class="container border border-primary mb-3 p-2">
+    <div class="row">
+      <h2>{{ title }}</h2>
+      <div class="col">
+        <ul class="row d-flex m-0 p-0 text-center list-unstyled">
+          <li class="items p-1" v-for="value of propertyValues" :key="value" @click="changeValue(value)">
+            {{ value }}
+          </li>
+        </ul>
+        <div>
+          <h3>Приклад</h3>
+          <p style="white-space: pre">.parent:{{ editParentString }}</p>
+          <p style="white-space: pre">{{ child }} {{ editChildString }}</p>
         </div>
-        <div class="col">
-          <div class="example">
-            <div :style="parentStyle">
-              <div :style="childStyle" class="child" v-for="i of childrenQuantity" :key="i">{{ i }}</div>
-            </div>
+      </div>
+      <div class="col">
+        <div class="example">
+          <div :style="parentStyle">
+            <div :style="selfChild(i)" class="child" v-for="i of childrenQuantity" :key="i">{{ i }}</div>
           </div>
         </div>
       </div>
@@ -40,6 +38,10 @@ export default {
   props: {
     title: {
       type: String
+    },
+    child: {
+      type: String,
+      default: ''
     },
     propertyName: {
       type: String
@@ -62,7 +64,11 @@ export default {
     styleDir: {
       type: Boolean,
       default: true
-    }
+    },
+    activeIndex: {
+      type: Number,
+      default: null
+    },
   },
   computed: {
     parentStyle() {
@@ -78,14 +84,14 @@ export default {
 
     },
     editParentString() {
-        return JSON.stringify(this.parentStyle)
-            .replace(/"/gm, '')
-            .replace(/,/gm, ';\n')
-            .replace(/{/gm, '{\n')
-            .replace(/}/gm, '\n}')
+      return JSON.stringify(this.parentStyle)
+          .replace(/"/gm, '')
+          .replace(/,/gm, ';\n')
+          .replace(/{/gm, '{\n')
+          .replace(/}/gm, '\n}')
     },
-    editChildString(){
-      if(!this.styleDir){
+    editChildString() {
+      if (!this.styleDir) {
         return JSON.stringify(this.childStyle)
             .replace(/"/gm, '')
             .replace(/,/gm, ';\n')
@@ -95,7 +101,7 @@ export default {
       return ''
     },
     childStyle() {
-      if (!this.styleDir) {
+      if (!this.styleDir && this.activeIndex !== null) {
         return {
           ...this.defaultChildStyle,
           [this.propertyName]: this.activeValue
@@ -110,11 +116,29 @@ export default {
     changeValue(value) {
       this.activeValue = value
     },
+    selfChild(i) {
+      if (this.activeIndex === i) {
+        return this.childStyle
+      }
+      return this.defaultChildStyle
+    }
   }
 }
 </script>
 
 <style>
+.container {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: start;
+}
 
 .item > div {
   border: 2px solid #4fc3f7;
@@ -122,4 +146,30 @@ export default {
   margin-bottom: 10px;
   padding: 8px 20px
 }
+.example {
+  height: 200px;
+  border: 2px solid #4fc3f7;
+  padding: 10px;
+}
+.example > div{
+  height: 100%;
+}
+
+.items {
+  border: 2px solid #4fc3f7;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.child {
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0.5rem;
+  background-color: #97dffa;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  border: 1px solid #fff;
+}
+
 </style>
