@@ -1,9 +1,9 @@
 <template>
   <div class="row">
     <div class="col-6 p-2">
-      <h2>flex-direction</h2>
+      <h2>{{ property }}</h2>
       <div class="button d-flex justify-content-between flex-wrap">
-        <div v-for="styleName in value" :key="styleName"
+        <div v-for="styleName in values" :key="styleName"
              :class="{'active': styleName === activeClass}"
              @click="setActiveClass(styleName)"
         >
@@ -11,18 +11,24 @@
         </div>
       </div>
       <div class="example-code code">
-        selector
-        <code style="white-space: pre" v-html="showStyle">
-        </code>
+        <div>
+          .selector
+          <code style="white-space: pre" v-html="showStyle">
+          </code>
+        </div>
+        <div v-if="defaultStyleChild">
+          .selector-child
+          <code style="white-space: pre" v-html="showStyleChild">
+          </code>
+        </div>
       </div>
     </div>
     <div class="col-6 p-2">
       <div class="example">
         <div :style="style" class="parent">
-          <div class="child">1</div>
-          <div class="child">2</div>
-          <div class="child">3</div>
-          <div class="child">4</div>
+          <div v-for="n in numberOfChildren" :key="n" :style="defaultStyleChild" class="child">
+            {{ n }}
+          </div>
         </div>
       </div>
     </div>
@@ -31,34 +37,63 @@
 
 <script>
 export default {
-  name: "VFlexDirection1",
-  props:{
+  name: "VFlexbox",
+  props: {
+    defaultStyleParent: {
+      default: null
+    },
+    defaultStyleChild: {
+      default: null
+    },
+    styleDir: {
+      type: Boolean,
+      default: true,
+    },
+    numberOfChildren: {
+      default: 4,
+    },
     property: {},
-    value:{},
+    values: {},
   },
   data: () => ({
     activeClass: '',
-    direction: 'row',
   }),
   created() {
-    this.activeClass = this.flexDirection[0]
+    this.activeClass = this.values[0]
   },
   computed: {
     style() {
-      return {
-        display: 'flex',
-        flexDirection: this.direction,
-      }
+      if (this.styleDir) {
+        return {
+          ...this.defaultStyleParent,
+          [this.property]: [this.activeClass],
+        }
+      } else
+        return {
+          ...this.defaultStyleParent,
+        }
     },
     showStyle() {
       return Object.keys(this.style).reduce((acc, key) =>
           `${acc}\t${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()}: ${this.style[key]};\n`, `{\n`) + `}`
-    }
+    },
+    styleChild() {
+      return {
+        ...this.defaultStyleChild,
+      }
+    },
+    showStyleChild() {
+      return this.styleChild ? JSON.stringify(this.styleChild)
+              .replace(/"/gm, '').replace(/{/gm, '{\n\t')
+              .replace(/,/gm, ';\n\t')
+              .replace(/:/gm, ': ')
+              .replace(/}/gm, ';\n}')
+          : null
+    },
   },
   methods: {
     setActiveClass(styleName) {
       this.activeClass = styleName;
-      this.direction = styleName;
     }
   }
 }
@@ -83,7 +118,6 @@ p {
 .example {
   border: 2px solid #4fc3f7;
   padding: 10px;
-  display: flex;
   height: 100%;
   flex: 1;
 }
@@ -96,7 +130,6 @@ p {
 .parent {
   border: 1px dotted #a6a6a6;
   height: 100%;
-  width: 100%;
 }
 
 .child {

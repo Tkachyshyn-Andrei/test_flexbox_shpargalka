@@ -4,10 +4,29 @@
       <div>
         <h1>Шпаргалка по Flexbox CSS</h1>
       </div>
-      <VFlexDirection/>
       <hr>
-      <VFlexDirection1 property="display" value="123"/>
-
+      <VFlexbox :values="display" property="display"/>
+      <hr>
+      <VFlexbox :default-style-parent="{display: 'flex'}"
+                :values="flexDirection" property="flex-direction"/>
+      <hr>
+      <VFlexbox :default-style-child="{width: '100%'}"
+                :default-style-parent="{display: 'flex'}"
+                :values="flexWrap" property="flex-wrap"/>
+      <hr>
+      <VFlexbox :default-style-child="{width: '40%', height: '40%'}"
+                :default-style-parent="{display: 'flex'}"
+                :values="flexFlow" property="flex-flow"/>
+      <hr>
+      <VFlexbox :default-style-parent="{display: 'flex'}"
+                :values="justifyContent" property="justify-content"/>
+      <hr>
+      <VFlexbox :default-style-parent="{display: 'flex'}"
+                :values="alignItems" property="align-items"/>
+      <hr>
+      <VFlexbox :style-dir="false"
+                :default-style-parent="{display: 'flex'}"
+                :values="order" property="order"/>
 
 
     </div>
@@ -15,12 +34,21 @@
 </template>
 
 <script>
-import VFlexDirection from "@/components/VFlexDirection";
-import VFlexDirection1 from "@/components/VFlexDirection1";
+import VFlexbox from "@/components/VFlexbox";
 
 export default {
   name: 'App',
-  components: {VFlexDirection, VFlexDirection1},
+  components: {VFlexbox},
+  data: () => ({
+        display: ['flex', 'inline-flex'],
+        flexDirection: ['row', 'row-reverse', 'column', 'column-reverse'],
+        flexWrap: ['nowrap', 'wrap', 'wrap-reverse'],
+        flexFlow: ['row nowrap', 'column-reverse', 'column wrap', 'row-reverse wrap-reverse'],
+        order: ['-1', '0', '1'],
+        justifyContent: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly'],
+        alignItems: ['flex-start', 'flex-end', 'center', 'baseline', 'Stretch'],
+      }
+  ),
 }
 </script>
 
