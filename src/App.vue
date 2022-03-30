@@ -27,6 +27,7 @@
       <VFlexbox :style-dir="false"
                 :default-style-parent="{display: 'flex'}"
                 :values="order" property="order"/>
+      <hr>
 
 
     </div>
