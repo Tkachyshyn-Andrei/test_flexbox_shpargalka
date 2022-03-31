@@ -1,15 +1,10 @@
 <template>
-  <div>
-    <div>
-      <router-view></router-view>
-    </div>
-  </div>
-
+<div>adfafdsaf</div>
 </template>
 
 <script>
 export default {
-  name: "App"
+  name: "Generator"
 }
 </script>
 
