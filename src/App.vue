@@ -26,7 +26,8 @@
       <hr>
       <VFlexbox :style-dir="false"
                 :default-style-parent="{display: 'flex'}"
-                :values="order" property="order"/>
+                :values="order" property="order"
+                :active-index="3"/>
       <hr>
 
 

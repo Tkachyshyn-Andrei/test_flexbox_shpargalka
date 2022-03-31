@@ -21,12 +21,19 @@
           <code style="white-space: pre" v-html="showStyleChild">
           </code>
         </div>
+        <div v-if="styleChild">
+          .selector-child-active
+          <code style="white-space: pre" v-html="showStyleChild">
+          </code>
+        </div>
       </div>
     </div>
     <div class="col-6 p-2">
       <div class="example">
         <div :style="style" class="parent">
-          <div v-for="n in numberOfChildren" :key="n" :style="defaultStyleChild" class="child">
+          <!--          <div v-for="n in numberOfChildren" :key="n" :style="styleChild" class="child">-->
+          <div v-for="n in numberOfChildren" :key="n" :style="selfChild(n)" class="child">
+
             {{ n }}
           </div>
         </div>
@@ -40,9 +47,11 @@ export default {
   name: "VFlexbox",
   props: {
     defaultStyleParent: {
+      type: Object,
       default: null
     },
     defaultStyleChild: {
+      type: Object,
       default: null
     },
     styleDir: {
@@ -50,7 +59,12 @@ export default {
       default: true,
     },
     numberOfChildren: {
+      type: Number,
       default: 4,
+    },
+    activeIndex: {
+      type: Number,
+      default: null
     },
     property: {},
     values: {},
@@ -66,7 +80,7 @@ export default {
       if (this.styleDir) {
         return {
           ...this.defaultStyleParent,
-          [this.property]: [this.activeClass],
+          [this.property]: this.activeClass,
         }
       } else
         return {
@@ -78,9 +92,15 @@ export default {
           `${acc}\t${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()}: ${this.style[key]};\n`, `{\n`) + `}`
     },
     styleChild() {
-      return {
-        ...this.defaultStyleChild,
-      }
+      if (!this.styleDir) {
+        return {
+          ...this.defaultStyleChild,
+          [this.property]: this.activeClass,
+        }
+      } else
+        return {
+          ...this.defaultStyleChild,
+        }
     },
     showStyleChild() {
       return this.styleChild ? JSON.stringify(this.styleChild)
@@ -90,10 +110,31 @@ export default {
               .replace(/}/gm, ';\n}')
           : null
     },
+
+
+    // styleChild() {
+    //   return {
+    //     ...this.defaultStyleChild,
+    //   }
+    // },
+    // showStyleChild() {
+    //   return this.styleChild ? JSON.stringify(this.styleChild)
+    //           .replace(/"/gm, '').replace(/{/gm, '{\n\t')
+    //           .replace(/,/gm, ';\n\t')
+    //           .replace(/:/gm, ': ')
+    //           .replace(/}/gm, ';\n}')
+    //       : null
+    // },
   },
   methods: {
     setActiveClass(styleName) {
       this.activeClass = styleName;
+    },
+    selfChild(n) {
+      if (this.activeIndex === n) {
+        return this.styleChild
+      }
+      return this.defaultStyleChild
     }
   }
 }
