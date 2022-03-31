@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 // import Item from "@/components/Item";
 import Home from "@/components/Home";
+import Generator from "@/components/Generator";
 
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -10,10 +11,10 @@ const router = new VueRouter({
             path:'/',
             component:Home
         },
-        // {
-        //     path:'/item',
-        //     component: Item
-        // }
+        {
+            path:'/generator',
+            component: Generator
+        }
     ]
 
 })

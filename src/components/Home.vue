@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <router-link to="/generator">Generator</router-link>
     <h1>Шпаргалка Grid CSS</h1>
     <Item title="display" property-name="display"
           :property-values="display"
