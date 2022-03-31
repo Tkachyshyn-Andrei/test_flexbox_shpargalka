@@ -18,10 +18,10 @@
         </div>
         <div v-if="defaultStyleChild">
           .selector-child
-          <code style="white-space: pre" v-html="showStyleChild">
+          <code style="white-space: pre" v-html="showDefaultStyleChild">
           </code>
         </div>
-        <div v-if="styleChild">
+        <div v-if="activeIndex">
           .selector-child-active
           <code style="white-space: pre" v-html="showStyleChild">
           </code>
@@ -31,9 +31,9 @@
     <div class="col-6 p-2">
       <div class="example">
         <div :style="style" class="parent">
-          <!--          <div v-for="n in numberOfChildren" :key="n" :style="styleChild" class="child">-->
-          <div v-for="n in numberOfChildren" :key="n" :style="selfChild(n)" class="child">
-
+          <div v-for="n in numberOfChildren" :key="n" :class="{'active-child': n===activeIndex}"
+               :style="setActiveChild(n)"
+               class="child">
             {{ n }}
           </div>
         </div>
@@ -92,7 +92,7 @@ export default {
           `${acc}\t${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()}: ${this.style[key]};\n`, `{\n`) + `}`
     },
     styleChild() {
-      if (!this.styleDir) {
+      if (!this.styleDir && this.activeIndex !== null) {
         return {
           ...this.defaultStyleChild,
           [this.property]: this.activeClass,
@@ -103,34 +103,28 @@ export default {
         }
     },
     showStyleChild() {
-      return this.styleChild ? JSON.stringify(this.styleChild)
-              .replace(/"/gm, '').replace(/{/gm, '{\n\t')
-              .replace(/,/gm, ';\n\t')
-              .replace(/:/gm, ': ')
-              .replace(/}/gm, ';\n}')
-          : null
+      return JSON.stringify(this.styleChild)
+          .replace(/"/gm, '')
+          .replace(/{/gm, '{\n\t')
+          .replace(/,/gm, ';\n\t')
+          .replace(/:/gm, ': ')
+          .replace(/}/gm, ';\n}')
     },
-
-
-    // styleChild() {
-    //   return {
-    //     ...this.defaultStyleChild,
-    //   }
-    // },
-    // showStyleChild() {
-    //   return this.styleChild ? JSON.stringify(this.styleChild)
-    //           .replace(/"/gm, '').replace(/{/gm, '{\n\t')
-    //           .replace(/,/gm, ';\n\t')
-    //           .replace(/:/gm, ': ')
-    //           .replace(/}/gm, ';\n}')
-    //       : null
-    // },
+    showDefaultStyleChild() {
+      return JSON.stringify(this.defaultStyleChild)
+          .replace(/"/gm, '')
+          .replace(/{/gm, '{\n\t')
+          .replace(/,/gm, ';\n\t')
+          .replace(/:/gm, ': ')
+          .replace(/}/gm, ';\n}')
+    },
   },
   methods: {
     setActiveClass(styleName) {
       this.activeClass = styleName;
+      console.log(this.showStyleChild)
     },
-    selfChild(n) {
+    setActiveChild(n) {
       if (this.activeIndex === n) {
         return this.styleChild
       }
@@ -190,6 +184,10 @@ p {
   font-size: 87.5%;
   color: #e83e8c;
   word-wrap: break-word;
+}
+
+.active-child {
+  background: #d1dfe4;
 }
 
 dl {

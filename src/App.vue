@@ -29,8 +29,31 @@
                 :values="order" property="order"
                 :active-index="3"/>
       <hr>
-
-
+      <VFlexbox :active-index="3"
+                :default-style-parent="{display: 'flex'}"
+                :style-dir="false" :values="alignSelf"
+                property="align-self"/>
+      <hr>
+      <VFlexbox :default-style-child="{width: '30%'}"
+                :default-style-parent="{display: 'flex', flexWrap: 'wrap'}"
+                :values="alignContent" property="align-content"/>
+      <hr>
+      <VFlexbox :active-index="3"
+                :default-style-parent="{display: 'flex'}"
+                :style-dir="false" :values="flexGrow"
+                property="flex-grow"/>
+      <hr>
+      <VFlexbox :active-index="3"
+                :default-style-child="{width: '40%'}"
+                :default-style-parent="{display: 'flex'}"
+                :style-dir="false" :values="flexShrink"
+                property="flex-shrink"/>
+      <hr>
+      <VFlexbox :active-index="3"
+                :default-style-parent="{display: 'flex'}"
+                :style-dir="false" :values="flexBasis"
+                property="flex-basis"/>
+      <hr>
     </div>
   </div>
 </template>
@@ -49,6 +72,11 @@ export default {
         order: ['-1', '0', '1'],
         justifyContent: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly'],
         alignItems: ['flex-start', 'flex-end', 'center', 'baseline', 'Stretch'],
+        alignSelf: ['flex-start', 'flex-end', 'center', 'baseline', 'Stretch'],
+        alignContent: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', 'stretch'],
+        flexGrow: ['0', '1'],
+        flexShrink: ['0', '1'],
+        flexBasis: ['30%', '50%', 'content'],
       }
   ),
 }
