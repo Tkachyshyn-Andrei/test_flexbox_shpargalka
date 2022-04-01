@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Home from "@/components/Home";
-import GridGenerator from "@/components/GridGenerator";
+import Home from "@/views/Home";
+import GridGenerator from "@/views/GridGenerator";
 import Hint from "@/components/Hint";
 
 Vue.use(VueRouter)
