@@ -1,8 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import Item from "@/components/Item";
+
 import Home from "@/components/Home";
-import Generator from "@/components/Generator";
+import GridGenerator from "@/components/GridGenerator";
+import Hint from "@/components/Hint";
 
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -12,8 +13,12 @@ const router = new VueRouter({
             component:Home
         },
         {
-            path:'/generator',
-            component: Generator
+            path:'/grid-generator',
+            component: GridGenerator
+        },
+        {
+            path:'/hint',
+            component:Hint
         }
     ]
 
