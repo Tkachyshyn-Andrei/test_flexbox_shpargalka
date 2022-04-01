@@ -4,7 +4,7 @@
       <h2>{{ title }}</h2>
       <div class="col">
         <ul class="row d-flex m-0 p-0 text-center list-unstyled">
-          <li class="items p-1" v-for="value of propertyValues" :key="value" @click="changeValue(value)">
+          <li v-for="value of propertyValues" :key="value" class="items p-1" @click="changeValue(value)">
             {{ value }}
           </li>
         </ul>
@@ -17,7 +17,7 @@
       <div class="col">
         <div class="example">
           <div :style="parentStyle">
-            <div :style="selfChild(i)" class="child" v-for="i of childrenQuantity" :key="i">{{ i }}</div>
+            <div v-for="i of childrenQuantity" :key="i" :style="selfChild(i)" class="child">{{ i }}</div>
           </div>
         </div>
       </div>
@@ -146,12 +146,14 @@ h2 {
   margin-bottom: 10px;
   padding: 8px 20px
 }
+
 .example {
   height: 200px;
   border: 2px solid #4fc3f7;
   padding: 10px;
 }
-.example > div{
+
+.example > div {
   height: 100%;
 }
 

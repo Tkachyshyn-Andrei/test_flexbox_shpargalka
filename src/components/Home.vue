@@ -1,11 +1,15 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col"><router-link to="/grid-generator"> Генератор Grid</router-link></div>
-      <div class="col">  <router-link to="/hint">Grid шпаргалка</router-link></div>
+      <div class="col">
+        <router-link to="/grid-generator"> Генератор Grid</router-link>
+      </div>
+      <div class="col">
+        <router-link to="/hint">Grid шпаргалка</router-link>
+      </div>
     </div>
   </div>
- </template>
+</template>
 
 <script>
 export default {

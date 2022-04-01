@@ -1,43 +1,43 @@
 <template>
   <div class="container">
     <h1>Шпаргалка Grid CSS</h1>
-    <Item title="display" property-name="display"
-          :property-values="display"
-          :default-parent-style="{display:'grid','grid-template-columns': 'auto auto auto'}"
+    <Item :default-parent-style="{display:'grid','grid-template-columns': 'auto auto auto'}" :property-values="display"
+          property-name="display"
+          title="display"
     />
-    <Item title="align-items" property-name="align-items"
-          :property-values="alignItems"
-          :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}"
+    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}" :property-values="alignItems"
+          property-name="align-items"
+          title="align-items"
     />
-    <Item title="justify-items" property-name="justify-items"
-          :property-values="justifyItems"
-          :default-parent-style="{display:'grid','grid-template-columns': 'auto auto auto'}"
+    <Item :default-parent-style="{display:'grid','grid-template-columns': 'auto auto auto'}" :property-values="justifyItems"
+          property-name="justify-items"
+          title="justify-items"
     />
-    <Item title="justify-content" property-name="justify-content"
-          :property-values="justifyContent"
-          :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}"
+    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}" :property-values="justifyContent"
+          property-name="justify-content"
+          title="justify-content"
     />
-    <Item title="align-content" property-name="align-content"
-          :property-values="alignContent"
-          :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}"
+    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}" :property-values="alignContent"
+          property-name="align-content"
+          title="align-content"
     />
-    <Item title="grid-auto-flow" property-name="grid-auto-flow"
-          :property-values="gridAutoFlow"
-          :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}"
+    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}" :property-values="gridAutoFlow"
+          property-name="grid-auto-flow"
+          title="grid-auto-flow"
     />
-    <Item title="justify-self" property-name="justify-self"
+    <Item :active-index="5" :default-parent-style="{display:'grid','grid-template-columns': 'auto auto auto'}"
           :property-values="justifySelf"
-          :default-parent-style="{display:'grid','grid-template-columns': 'auto auto auto'}"
           :style-dir="false"
           child="child"
-          :active-index="5"
+          property-name="justify-self"
+          title="justify-self"
     />
-    <Item title="align-self" property-name="align-self"
+    <Item :active-index="5" :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}"
           :property-values="alignSelf"
-          :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}"
           :style-dir="false"
           child="child"
-          :active-index="5"
+          property-name="align-self"
+          title="align-self"
     />
   </div>
 </template>
@@ -56,9 +56,9 @@ export default {
       alignItems: ['start', 'end', 'center', 'stretch'],
       justifyContent: ['start', 'end', 'center', 'stretch', 'space-between', 'space-around', 'space-evenly'],
       alignContent: ['start', 'end', 'center', 'stretch', 'space-between', 'space-around', 'space-evenly'],
-      gridAutoFlow: ['row', 'column','dense'],
-      justifySelf: ['start', 'end','center','stretch'],
-      alignSelf: ['start', 'end','center','stretch'],
+      gridAutoFlow: ['row', 'column', 'dense'],
+      justifySelf: ['start', 'end', 'center', 'stretch'],
+      alignSelf: ['start', 'end', 'center', 'stretch'],
     }
   }
 
