@@ -23,7 +23,7 @@
         </div>
         <div v-if="activeIndex">
           .selector-child-active
-          <code style="white-space: pre" v-html="showStyleChild">
+          <code style="white-space: pre" v-html="showStyleChildActive">
           </code>
         </div>
       </div>
@@ -118,11 +118,28 @@ export default {
           .replace(/:/gm, ': ')
           .replace(/}/gm, ';\n}')
     },
+    styleChildActive() {
+      if (!this.styleDir && this.activeIndex !== null) {
+        return {
+          [this.property]: this.activeClass,
+        }
+      } else
+        return {
+          ...this.defaultStyleChild,
+        }
+    },
+    showStyleChildActive() {
+      return JSON.stringify(this.styleChildActive)
+          .replace(/"/gm, '')
+          .replace(/{/gm, '{\n\t')
+          .replace(/,/gm, ';\n\t')
+          .replace(/:/gm, ': ')
+          .replace(/}/gm, ';\n}')
+    },
   },
   methods: {
     setActiveClass(styleName) {
       this.activeClass = styleName;
-      console.log(this.showStyleChild)
     },
     setActiveChild(n) {
       if (this.activeIndex === n) {
@@ -166,6 +183,10 @@ p {
 .parent {
   border: 1px dotted #a6a6a6;
   height: 100%;
+}
+
+.parent:first-child {
+  background-color: #f0f2f3;
 }
 
 .child {

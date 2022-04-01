@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div id="app">
+    <div id="FlexBox">
       <div>
         <h1>Шпаргалка по Flexbox CSS</h1>
       </div>
@@ -82,13 +82,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .container {
   max-width: 1170px;
   margin: 0 auto;
 }
 
-#app {
+#FlexBox {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
