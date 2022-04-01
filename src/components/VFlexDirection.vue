@@ -7,7 +7,7 @@
              :class="{'active': styleName === activeClass}"
              @click="setActiveClass(styleName)"
         >
-          {{ styleName.label }}
+          {{ styleName }}
         </div>
       </div>
       <div class="example-code code">
@@ -26,24 +26,24 @@
         </div>
       </div>
     </div>
-    <div class="p-2">
-      <p>Властивість flex-direction задає напрямок основних осей у контейнері і цим визначає положення флексів у
-        контейнері.</p>
-      <dl>
-        <dt>row</dt>
-        <dd>Головна вісь спрямована так як і орієнтація тексту, за умовчанням зліва направо.</dd>
-        <dt>row-reverse</dt>
-        <dd>Схоже на значення row, але міняються місцями початкова та кінцева точки та головна вісь направлена з права
-          наліво
-        </dd>
-        <dt>column</dt>
-        <dd>Головна вісь розташована вертикально і спрямована зверху донизу.</dd>
-        <dt>column-reverse</dt>
-        <dd>Головна вісь розташовується вертикально, але змінюється положення початкової та кінцевої точок і вісь
-          спрямована знизу нагору.
-        </dd>
-      </dl>
-    </div>
+<!--    <div class="p-2 mb-5">-->
+<!--      <p>Властивість flex-direction задає напрямок основних осей у контейнері і цим визначає положення флексів у-->
+<!--        контейнері.</p>-->
+<!--      <dl>-->
+<!--        <dt>row</dt>-->
+<!--        <dd>Головна вісь спрямована так як і орієнтація тексту, за умовчанням зліва направо.</dd>-->
+<!--        <dt>row-reverse</dt>-->
+<!--        <dd>Схоже на значення row, але міняються місцями початкова та кінцева точки та головна вісь направлена з права-->
+<!--          наліво-->
+<!--        </dd>-->
+<!--        <dt>column</dt>-->
+<!--        <dd>Головна вісь розташована вертикально і спрямована зверху донизу.</dd>-->
+<!--        <dt>column-reverse</dt>-->
+<!--        <dd>Головна вісь розташовується вертикально, але змінюється положення початкової та кінцевої точок і вісь-->
+<!--          спрямована знизу нагору.-->
+<!--        </dd>-->
+<!--      </dl>-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -54,10 +54,10 @@ export default {
     activeClass: '',
     direction: 'row',
     flexDirection: [
-      {label: 'row'},
-      {label: 'row-reverse'},
-      {label: 'column'},
-      {label: 'column-reverse'},
+      'row',
+      'row-reverse',
+      'column',
+      'column-reverse',
     ]
   }),
   created() {
@@ -72,13 +72,13 @@ export default {
     },
     showStyle() {
       return Object.keys(this.style).reduce((acc, key) =>
-          `${acc} \t ${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()} : ${this.style[key]};\n`, `{\n`) + `}`
+          `${acc}\t${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()}: ${this.style[key]};\n`, `{\n`) + `}`
     }
   },
   methods: {
     setActiveClass(styleName) {
       this.activeClass = styleName;
-      this.direction = styleName.label;
+      this.direction = styleName;
     }
   }
 }
