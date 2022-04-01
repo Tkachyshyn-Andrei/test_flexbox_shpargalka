@@ -7,18 +7,18 @@ import Hint from "@/components/Hint";
 
 Vue.use(VueRouter)
 const router = new VueRouter({
-    routes:[
+    routes: [
         {
-            path:'/',
-            component:Home
+            path: '/',
+            component: Home
         },
         {
-            path:'/grid-generator',
+            path: '/grid-generator',
             component: GridGenerator
         },
         {
-            path:'/hint',
-            component:Hint
+            path: '/hint',
+            component: Hint
         }
     ]
 
