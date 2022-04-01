@@ -9,7 +9,7 @@
           <div>
             <h1>
               <div class="area-name">
-                .<span area-label="area name" role="textbox" class="input token class-name">container</span>
+                .<span area-label="area name" class="input token class-name" role="textbox">container</span>
               </div>
               <div class="area-action-buttons">
                 <button class="remove-button" title="Remove this area from the grid">
@@ -26,64 +26,50 @@
           </div>
           <div>
             <h3>Explicit Grid</h3>
-            <div class="area-side">
-              <div @click="addContainerCol">
-                <span>grid-template-columns</span>
-                <button>add</button>
-              </div>
-              <div class="input-container d-flex" v-for="container of containersCol" :key="container">
-                <input type="text" class="" area-label="column-size"
-                       v-model="gridTemplateColumns.string"
-                       @input="showGridTemplateColumns()"
-                >
-                <!--                <select class="unit-select" area-label="column-size" name="">-->
-                <!--                  <option>fr</option>-->
-                <!--                  <option>px</option>-->
-                <!--                  <option>%</option>-->
-                <!--                  <option>em</option>-->
-                <!--                  <option>auto</option>-->
-                <!--                  <option>min-content</option>-->
-                <!--                  <option>max-content</option>-->
-                <!--                  <option>minmax</option>-->
-                <!--                </select>-->
-                <button class="remove-btn" area-label="remove-column 1"
-                        @click="removeContainerCol"
-                >
-                  remove
-                </button>
-              </div>
-            </div>
-            <div class="area-side">
-              <div @click="addContainerRow">
-                <span>grid-template-rows</span>
-                <button>add</button>
-              </div>
-              <div class="input-container d-flex" v-for="container of containersRow" :key="container">
-                <input type="number"
-                       class=""
-                       area-label="column-size"
-                       min="0"
-                       step="0.5"
 
-                >
-                <!--                <select class="unit-select" area-label="column-size" name="">-->
-                <!--                  <option>fr</option>-->
-                <!--                  <option>px</option>-->
-                <!--                  <option>%</option>-->
-                <!--                  <option>em</option>-->
-                <!--                  <option>auto</option>-->
-                <!--                  <option>min-content</option>-->
-                <!--                  <option>max-content</option>-->
-                <!--                  <option>minmax</option>-->
-                <!--                </select>-->
-                <button class="remove-btn"
-                        area-label="remove-column 1"
-                        @click="removeContainerRow"
-                >
+            <hr>
+            <hr>
+            <input type="text">
+            <div class="area-side">
+              <div>
+                <span>grid-template-columns</span>
+                <button @click="addColumn">add</button>
+              </div>
+              <div v-for="(col, index) of gridTemplateColumns" :key="index" class="input-container d-flex">
+                <input v-model="col.size" class="" type="text">
+                <select v-model="col.unitOfMeasurement" class="unit-select" name="">
+                  <option v-for="unit of unitOfMeasurements" :key="unit" :value="unit">{{ unit }}</option>
+                </select>
+                <button class="remove-btn" @click="removeColumn(col)">
                   remove
                 </button>
               </div>
             </div>
+
+
+            <hr>
+            <hr>
+
+            <div class="area-side">
+              <div>
+                <span>grid-template-rows</span>
+                <button @click="addRow">add</button>
+              </div>
+              <div v-for="(row, index) of gridTemplateRows" :key="index" class="input-container d-flex">
+                <input v-model="row.size" class="" type="text">
+                <select v-model="row.unitOfMeasurement" class="unit-select" name="">
+                  <option v-for="unit of unitOfMeasurements" :key="unit" :value="unit">{{ unit }}</option>
+                </select>
+                <button class="remove-btn" @click="removeContainerRow">
+                  remove
+                </button>
+              </div>
+            </div>
+
+            <hr>
+            <hr>
+
+
             <div class="area-side">
               <span>row-gap</span>
               <input type="number">
@@ -111,9 +97,9 @@
                 <button>add</button>
               </div>
               <div class="input-container d-flex">
-                <input type="number" class="" area-label="column-size" min="0" step="0.5">
-                <select class="unit-select" area-label="column-size" name=""></select>
-                <button class="remove-btn" area-label="remove-column 1">
+                <input area-label="column-size" class="" min="0" step="0.5" type="number">
+                <select area-label="column-size" class="unit-select" name=""></select>
+                <button area-label="remove-column 1" class="remove-btn">
                   remove
                 </button>
               </div>
@@ -124,9 +110,9 @@
                 <button>add</button>
               </div>
               <div class="input-container d-flex">
-                <input type="number" class="" area-label="column-size" min="0" step="0.5">
-                <select class="unit-select" area-label="column-size" name=""></select>
-                <button class="remove-btn" area-label="remove-column 1">
+                <input area-label="column-size" class="" min="0" step="0.5" type="number">
+                <select area-label="column-size" class="unit-select" name=""></select>
+                <button area-label="remove-column 1" class="remove-btn">
                   remove
                 </button>
               </div>
@@ -137,60 +123,60 @@
             <div>
               <div>
                 <div>
-                  <input type="checkbox" id="justify-items">
+                  <input id="justify-items" type="checkbox">
                   <label for="justify-items">justify-items</label> <span>initial</span>
                   <div class="radio-toolbar">
-                    <input type="radio" id="items-placement-justify-items-stretch">
+                    <input id="items-placement-justify-items-stretch" type="radio">
                     <label for="items-placement-justify-items-stretch">stretch</label>
-                    <input type="radio" id="items-placement-justify-items-start">
+                    <input id="items-placement-justify-items-start" type="radio">
                     <label for="items-placement-justify-items-start">start</label>
-                    <input type="radio" id="items-placement-justify-items-center">
+                    <input id="items-placement-justify-items-center" type="radio">
                     <label for="items-placement-justify-items-center">center</label>
-                    <input type="radio" id="items-placement-justify-items-end">
+                    <input id="items-placement-justify-items-end" type="radio">
                     <label for="items-placement-justify-items-end">end</label>
                   </div>
                 </div>
                 <div>
-                  <input type="checkbox" id="align-items">
+                  <input id="align-items" type="checkbox">
                   <label for="align-items">align-items</label> <span>initial</span>
                   <div class="radio-toolbar">
-                    <input type="radio" id="items-placement-align-items-stretch">
+                    <input id="items-placement-align-items-stretch" type="radio">
                     <label for="items-placement-align-items-stretch">stretch</label>
-                    <input type="radio" id="items-placement-align-items-start">
+                    <input id="items-placement-align-items-start" type="radio">
                     <label for="items-placement-align-items-start">start</label>
-                    <input type="radio" id="items-placement-align-items-center">
+                    <input id="items-placement-align-items-center" type="radio">
                     <label for="items-placement-align-items-center">center</label>
-                    <input type="radio" id="items-placement-align-items-end">
+                    <input id="items-placement-align-items-end" type="radio">
                     <label for="items-placement-align-items-end">end</label>
                   </div>
                 </div>
               </div>
               <div>
                 <div>
-                  <input type="checkbox" id="justify-content">
+                  <input id="justify-content" type="checkbox">
                   <label for="justify-content">justify-content</label> <span>initial</span>
                   <div class="radio-toolbar">
-                    <input type="radio" id="items-placement-justify-content-stretch">
+                    <input id="items-placement-justify-content-stretch" type="radio">
                     <label for="items-placement-justify-content-stretch">stretch</label>
-                    <input type="radio" id="items-placement-justify-content-start">
+                    <input id="items-placement-justify-content-start" type="radio">
                     <label for="items-placement-justify-content-start">start</label>
-                    <input type="radio" id="items-placement-justify-content-center">
+                    <input id="items-placement-justify-content-center" type="radio">
                     <label for="items-placement-justify-content-center">center</label>
-                    <input type="radio" id="items-placement-justify-content-end">
+                    <input id="items-placement-justify-content-end" type="radio">
                     <label for="items-placement-justify-content-end">end</label>
                   </div>
                 </div>
                 <div>
-                  <input type="checkbox" id="align-content">
+                  <input id="align-content" type="checkbox">
                   <label for="align-content">align-content</label> <span>initial</span>
                   <div class="radio-toolbar">
-                    <input type="radio" id="items-placement-align-content-stretch">
+                    <input id="items-placement-align-content-stretch" type="radio">
                     <label for="items-placement-align-content-stretch">stretch</label>
-                    <input type="radio" id="items-placement-align-content-start">
+                    <input id="items-placement-align-content-start" type="radio">
                     <label for="items-placement-align-content-start">start</label>
-                    <input type="radio" id="items-placement-align-content-center">
+                    <input id="items-placement-align-content-center" type="radio">
                     <label for="items-placement-align-content-center">center</label>
-                    <input type="radio" id="items-placement-align-content-end">
+                    <input id="items-placement-align-content-end" type="radio">
                     <label for="items-placement-align-content-end">end</label>
                   </div>
                 </div>
@@ -236,10 +222,24 @@
           </div>
         </div>
       </div>
-      <div class="col-6 area-editor-container d-grid">
+
+
+      <div class="col-6 area-editor-container">
+        <div :style="parentStyle" class="parent h-100">
+
+          <div v-for="index in gridTemplateRows.length * gridTemplateColumns.length" :key="index">{{ index }}</div>
+
+          <!--          <div v-for="(row, index) in gridTemplateRows" :key="index" :class="`row-${index + 1}`">-->
+          <!--            <div v-for="(col, colIndex) in gridTemplateColumns" :key="colIndex" :class="`col-${colIndex + 1}`">-->
+          <!--              {{ index }} / {{ colIndex }}-->
+          <!--            </div>-->
+          <!--          </div>-->
+        </div>
       </div>
+
+
       <div class="col-3 sidebar">
-        <div class="row flex-column">
+        <div class="d-flex h-100 flex-column">
           <div class="col">
             <div class="buttons-wrapper">
               <div>
@@ -279,21 +279,59 @@
 </template>
 
 <script>
-
-
 export default {
   name: "GridGenerator",
-  data() {
-    return {
-      containersRow: 1,
-      containersCol: 1,
-      gridTemplateColumns:[{
-        string:''
-      }],
-    }
+  data: () => ({
+    unitOfMeasurements: [
+      "fr",
+      "px",
+      "%",
+      "em",
+      "auto",
+      "min-content",
+      "max-content",
+      "minmax",
+    ],
+    containersRow: [],
+    containersCol: [],
+    gridTemplateColumns: [{
+      size: '1',
+      unitOfMeasurement: 'fr'
 
+    }],
+    gridTemplateRows: [{
+      size: '1',
+      unitOfMeasurement: 'fr'
+    }],
+  }),
+  computed: {
+    parentStyle() {
+      return {
+        display: 'grid',
+        'grid-template-columns': this.gridTemplateColumns.map(col => `${col.size}${col.unitOfMeasurement}`).join(' '),
+        'grid-template-rows': this.gridTemplateRows.map(row => `${row.size}${row.unitOfMeasurement}`).join(' '),
+      }
+    }
   },
   methods: {
+    addColumn() {
+      this.gridTemplateColumns.push({
+        size: 1,
+        unitOfMeasurement: this.unitOfMeasurements[0]
+      })
+    },
+    addRow() {
+      this.gridTemplateRows.push({
+        size: 1,
+        unitOfMeasurement: this.unitOfMeasurements[0]
+      })
+    },
+    removeColumn(col) {
+      console.log(col)
+    },
+    removeRow(row) {
+      console.log(row);
+    },
     addContainerCol() {
       this.containersCol++
     },
