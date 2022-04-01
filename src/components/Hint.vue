@@ -5,23 +5,28 @@
           property-name="display"
           title="display"
     />
-    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}" :property-values="alignItems"
+    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}"
+          :property-values="alignItems"
           property-name="align-items"
           title="align-items"
     />
-    <Item :default-parent-style="{display:'grid','grid-template-columns': 'auto auto auto'}" :property-values="justifyItems"
+    <Item :default-parent-style="{display:'grid','grid-template-columns': 'auto auto auto'}"
+          :property-values="justifyItems"
           property-name="justify-items"
           title="justify-items"
     />
-    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}" :property-values="justifyContent"
+    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}"
+          :property-values="justifyContent"
           property-name="justify-content"
           title="justify-content"
     />
-    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}" :property-values="alignContent"
+    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}"
+          :property-values="alignContent"
           property-name="align-content"
           title="align-content"
     />
-    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}" :property-values="gridAutoFlow"
+    <Item :default-parent-style="{display:'grid', 'grid-template-columns': 'auto auto auto'}"
+          :property-values="gridAutoFlow"
           property-name="grid-auto-flow"
           title="grid-auto-flow"
     />

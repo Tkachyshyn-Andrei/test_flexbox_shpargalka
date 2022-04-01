@@ -24,10 +24,10 @@
       <VFlexbox :default-style-parent="{display: 'flex'}"
                 :values="alignItems" property="align-items"/>
       <hr>
-      <VFlexbox :style-dir="false"
+      <VFlexbox :active-index="3"
                 :default-style-parent="{display: 'flex'}"
-                :values="order" property="order"
-                :active-index="3"/>
+                :style-dir="false" :values="order"
+                property="order"/>
       <hr>
       <VFlexbox :active-index="3"
                 :default-style-parent="{display: 'flex'}"
