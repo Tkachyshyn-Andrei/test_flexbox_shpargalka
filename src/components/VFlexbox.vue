@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-6 p-2">
       <h2>{{ property }}</h2>
-      <div class="button d-flex justify-content-between flex-wrap">
+      <div class="button d-flex flex-wrap">
         <div v-for="styleName in values" :key="styleName"
              :class="{'active': styleName === activeClass}"
              @click="setActiveClass(styleName)"
@@ -146,6 +146,7 @@ p {
 .button > div {
   border: 2px solid #4fc3f7;
   margin-bottom: 10px;
+  margin-right: 10px;
   padding: 8px 8px;
   cursor: pointer;
 }
