@@ -185,9 +185,6 @@ p {
   height: 100%;
 }
 
-.parent:first-child {
-  background-color: #f0f2f3;
-}
 
 .child {
   min-width: 2.5rem;
