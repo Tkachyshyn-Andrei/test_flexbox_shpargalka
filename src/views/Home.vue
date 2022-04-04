@@ -8,10 +8,10 @@
         <router-link to="/hint">Grid шпаргалка</router-link>
       </div>
       <div class="col">
-        <router-link to="/FlexBoxGenerator">Генератор FlexBox</router-link>
+        <router-link to="/flex-generator">Генератор FlexBox</router-link>
       </div>
       <div class="col">
-        <router-link to="/FlexBox">FlexBox шпаргалка</router-link>
+        <router-link to="/flex-box">FlexBox шпаргалка</router-link>
       </div>
     </div>
   </div>
