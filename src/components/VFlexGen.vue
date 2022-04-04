@@ -44,7 +44,7 @@ export default {
   components: {VSelect},
   data: () => ({
         items: 4,
-        selected:'',
+        selected: '',
         display: ['flex', 'inline-flex'],
         flexDirection: ['row', 'row-reverse', 'column', 'column-reverse'],
         flexWrap: ['nowrap', 'wrap', 'wrap-reverse'],
@@ -62,13 +62,13 @@ export default {
   computed:{
     style() {
       return {
-        [this.property]: this.selected,
+        property: this.value,
       }
     }
   },
   methods: {
     addDiv() {
-      console.log(VSelect)
+      console.log(this.value)
       this.items += 1;
     },
     deleteDiv(){
