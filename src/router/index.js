@@ -23,11 +23,11 @@ const router = new VueRouter({
             component: Hint
         },
         {
-            path: '/FlexBoxGenerator',
+            path: '/flex-generator',
             component: FlexBoxGenerator
         },
         {
-            path: '/FlexBox',
+            path: '/flex-box',
             component: FlexBox
         }
     ]
