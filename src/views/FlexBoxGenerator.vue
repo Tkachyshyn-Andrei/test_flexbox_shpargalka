@@ -1,17 +1,25 @@
 <template>
-  <div class="container">
-    <h1>Шпаргалка по Flexbox CSS</h1>
+  <div class="container-fluid">
+    <h1>Генератор Flexbox CSS</h1>
+    <hr>
+    <VFlexGen/>
+
+
+
   </div>
 </template>
 
 <script>
+import VFlexGen from "@/components/VFlexGen";
+
 export default {
-  name: "FlexBoxGenerator"
+  name: "FlexBoxGenerator",
+  components: {VFlexGen}
 }
 </script>
 
-<style scoped>
-.container{
+<style>
+.container {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

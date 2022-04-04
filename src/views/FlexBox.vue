@@ -5,7 +5,8 @@
         <h1>Шпаргалка по Flexbox CSS</h1>
       </div>
       <hr>
-      <VFlexbox :values="display" property="display"/>
+      <VFlexbox :default-style-parent="{backgroundColor: '#f0f2f3'}"
+                :values="display" property="display"/>
       <hr>
       <VFlexbox :default-style-parent="{display: 'flex'}"
                 :values="flexDirection" property="flex-direction"/>
