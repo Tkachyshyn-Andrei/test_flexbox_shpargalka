@@ -6,8 +6,7 @@
     <select v-model="selected">
       <option disabled value="">Виберіть один із варіантів</option>
       <option v-for="value in values" :key="value"
-              :value="value"
-      >
+              :value="value"      >
         {{ value }}
       </option>
     </select>
