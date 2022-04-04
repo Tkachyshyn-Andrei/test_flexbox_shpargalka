@@ -52,7 +52,7 @@
 import Item from "@/components/Item";
 
 export default {
-  name: 'App',
+  name: 'VGrid',
   components: {Item},
   data() {
     return {

@@ -77,7 +77,7 @@ export default {
         alignContent: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', 'stretch'],
         flexGrow: ['0', '1'],
         flexShrink: ['0', '1'],
-        flexBasis: ['30%', '50%', 'content'],
+        flexBasis: ['30%', '50%', '100%', 'content'],
       }
   ),
 }

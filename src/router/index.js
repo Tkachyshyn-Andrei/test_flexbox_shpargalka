@@ -5,7 +5,7 @@ import Home from "@/views/Home";
 import GridGenerator from "@/views/GridGenerator";
 import FlexBox from "@/views/FlexBox";
 import FlexBoxGenerator from "@/views/FlexBoxGenerator";
-import Hint from "@/components/Hint";
+import Hint from "@/views/Grid";
 
 Vue.use(VueRouter)
 const router = new VueRouter({
