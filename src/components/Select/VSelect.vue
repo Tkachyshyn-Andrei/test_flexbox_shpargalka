@@ -3,11 +3,10 @@
     <div class="property-name">
       {{ property }}: &nbsp;
     </div>
-    <select v-model="selected">
+    <select @change="switchSelect($event)">
       <option disabled value="">Виберіть один із варіантів</option>
-      <option v-for="value in values" :key="value"
-              :value="value"      >
-        {{ value }}
+      <option v-for="option in values" :key="option" :value="option" :selected="option === value">
+        {{ option }}
       </option>
     </select>
   </div>
@@ -23,16 +22,19 @@ export default {
     values: {
       type: Array,
     },
+    value:{}
   },
-  data: () => ({
-    selected: '',
-  }),
+  methods: {
+    switchSelect(event) {
+      this.$emit('input', event.target.value)
+    }
+  },
 }
 </script>
 
 <style scoped>
 .property-name {
-  min-width: 150px;
+  min-width: 135px;
 }
 
 select {

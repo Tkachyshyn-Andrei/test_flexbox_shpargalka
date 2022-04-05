@@ -10,30 +10,47 @@
             <div @click="deleteDiv">Delete Div</div>
           </div>
           <div>
-            <VSelect :values="display" property="display"/>
-            <VSelect :values="flexDirection" property="flex-direction"/>
-            <VSelect :values="flexWrap" property="flex-wrap"/>
-            <VSelect :values="flexFlow" property="flex-flow"/>
-            <VSelect :values="justifyContent" property="justify-content"/>
-            <VSelect :values="alignItems" property="align-items"/>
-            <VSelect :values="alignSelf" property="align-self"/>
-            <VSelect :values="alignContent" property="align-content"/>
-            <VSelect :values="flexGrow" property="flex-grow"/>
-            <VSelect :values="flexShrink" property="flex-shrink"/>
-            <VSelect :values="flexBasis" property="flex-basis"/>
+            <VSelect v-model="selectedPropertiesParent.display" :values="display" property="display"/>
+            <VSelect v-model="selectedPropertiesParent.flexDirection" :values="flexDirection"
+                     property="flex-direction"/>
+            <VSelect v-model="selectedPropertiesParent.flexWrap" :values="flexWrap" property="flex-wrap"/>
+            <VSelect v-model="selectedPropertiesParent.flexFlow" :values="flexFlow" property="flex-flow"/>
+            <VSelect v-model="selectedPropertiesParent.justifyContent" :values="justifyContent"
+                     property="justify-content"/>
+            <VSelect v-model="selectedPropertiesParent.alignItems" :values="alignItems" property="align-items"/>
+            <VSelect v-model="selectedPropertiesParent.alignContent" :values="alignContent" property="align-content"/>
+          </div>
+          <div class="container-style child-block">
+            <div>Вибрано Div</div>
+            <VSelect v-model="selectedPropertiesChild.order" :values="order" property="order"/>
+            <VSelect v-model="selectedPropertiesChild.alignSelf" :values="alignSelf" property="align-self"/>
+            <VSelect v-model="selectedPropertiesChild.flexGrow" :values="flexGrow" property="flex-grow"/>
+            <VSelect v-model="selectedPropertiesChild.flexShrink" :values="flexShrink" property="flex-shrink"/>
+            <VSelect v-model="selectedPropertiesChild.flexBasis" :values="flexBasis" property="flex-basis"/>
           </div>
         </div>
       </div>
       <div class="col-8 p-2">
         <div class="container-style mb-3">
-          <div class="parent-block">
-            <div v-for="n in items" :key="n" class="item">
+          <div :style="parentStyle" class="parent-block">
+            <div v-for="n in items" :key="n" class="item"
+                 :class="{'active-child': n === activeIndex}"
+                 @click="setActiveIndex(n)"
+                 :style="setActiveChild(n)"
+            >
               Div {{ n }}
             </div>
           </div>
         </div>
-        <div class="container-style block">
-          Тут буде формуватися CSS
+        <div class="container-style code">
+          <div>
+            .selector
+            <code style="white-space: pre" v-html="showParentStyle"/>
+          </div>
+          <div>
+            .selector-child-active
+            <code style="white-space: pre" v-html="showChildStyle"/>
+          </div>
         </div>
       </div>
     </div>
@@ -49,8 +66,24 @@ export default {
   name: "FlexBoxGenerator",
   components: {VSelect},
   data: () => ({
+        activeIndex: '',
         items: 4,
-        // selected: '',
+        selectedPropertiesParent: {
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'nowrap',
+          flexFlow: 'row nowrap',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          alignContent: 'flex-start',
+        },
+        selectedPropertiesChild: {
+          order: '0',
+          alignSelf: 'flex-start',
+          flexGrow: '0',
+          flexShrink: '0',
+          flexBasis: 'content',
+        },
         display: ['flex', 'inline-flex'],
         flexDirection: ['row', 'row-reverse', 'column', 'column-reverse'],
         flexWrap: ['nowrap', 'wrap', 'wrap-reverse'],
@@ -65,13 +98,37 @@ export default {
         flexBasis: ['30%', '50%', 'content'],
       }
   ),
+  computed: {
+    parentStyle() {
+      return this.selectedPropertiesParent
+    },
+    showParentStyle() {
+      return Object.keys(this.parentStyle).reduce((acc, key) =>
+          `${acc}\t${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()}: ${this.parentStyle[key]};\n`, `{\n`) + `}`
+    },
+    childStyle() {
+      return this.selectedPropertiesChild
+    },
+    showChildStyle() {
+      return Object.keys(this.childStyle).reduce((acc, key) =>
+          `${acc}\t${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()}: ${this.childStyle[key]};\n`, `{\n`) + `}`
+    },
+  },
   methods: {
     addDiv() {
-      console.log(this.selected)
-      this.items += 1;
+      this.items++;
     },
     deleteDiv() {
-      this.items -= 1;
+      this.items--;
+    },
+    setActiveIndex(n) {
+      console.log(this.activeIndex);
+      this.activeIndex = n;
+    },
+    setActiveChild(n) {
+      if (this.activeIndex === n) {
+        return this.childStyle
+      }
     }
   }
 }
@@ -99,6 +156,7 @@ h1 {
 .parent-block {
   min-height: 300px;
   border: 1px dotted #a6a6a6;
+  background-color: rgb(240, 242, 243);
 }
 
 .item {
@@ -116,5 +174,19 @@ h1 {
   margin-right: 10px;
   padding: 8px 8px;
   cursor: pointer;
+}
+
+.code {
+  font-size: 87.5%;
+  color: #e83e8c;
+  word-wrap: break-word;
+}
+
+.child-block .property-name {
+  min-width: 123px;
+}
+
+.active-child {
+  background: #abb6ba;
 }
 </style>
