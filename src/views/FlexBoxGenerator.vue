@@ -6,8 +6,8 @@
       <div class="col-4 p-2">
         <div class="container-style h-100 ">
           <div class="button d-flex">
-            <div @click="addDiv">Add Div</div>
-            <div @click="deleteDiv">Delete Div</div>
+            <div @click="addDiv">Add Child</div>
+            <div @click="deleteDiv">Delete Child</div>
           </div>
           <div>
             <VSelect v-model="selectedPropertiesParent.display" :values="display" property="display"/>
@@ -21,12 +21,20 @@
             <VSelect v-model="selectedPropertiesParent.alignContent" :values="alignContent" property="align-content"/>
           </div>
           <div class="container-style child-block">
-            <div>Вибрано Div</div>
+            <div>Вибрано Child</div>
             <VSelect v-model="selectedPropertiesChild.order" :values="order" property="order"/>
             <VSelect v-model="selectedPropertiesChild.alignSelf" :values="alignSelf" property="align-self"/>
             <VSelect v-model="selectedPropertiesChild.flexGrow" :values="flexGrow" property="flex-grow"/>
             <VSelect v-model="selectedPropertiesChild.flexShrink" :values="flexShrink" property="flex-shrink"/>
             <VSelect v-model="selectedPropertiesChild.flexBasis" :values="flexBasis" property="flex-basis"/>
+            <div class="mb-1">
+              <label>width</label>
+              <input placeholder="20px">
+            </div>
+            <div>
+              <label>height</label>
+              <input placeholder="20px">
+            </div>
           </div>
         </div>
       </div>
@@ -38,17 +46,17 @@
                  @click="setActiveIndex(n)"
                  :style="setActiveChild(n)"
             >
-              Div {{ n }}
+              Child {{ n }}
             </div>
           </div>
         </div>
         <div class="container-style code">
           <div>
-            .selector
+            .parent
             <code style="white-space: pre" v-html="showParentStyle"/>
           </div>
           <div>
-            .selector-child-active
+            .child
             <code style="white-space: pre" v-html="showChildStyle"/>
           </div>
         </div>
@@ -122,7 +130,6 @@ export default {
       this.items--;
     },
     setActiveIndex(n) {
-      console.log(this.activeIndex);
       this.activeIndex = n;
     },
     setActiveChild(n) {
@@ -166,6 +173,7 @@ h1 {
   background-repeat: no-repeat;
   border: 1px solid #fff;
   text-align: center;
+  cursor: pointer;
 }
 
 .button > div {
@@ -184,6 +192,14 @@ h1 {
 
 .child-block .property-name {
   min-width: 123px;
+}
+.container-style label{
+  min-width: 123px;
+}
+.container-style input{
+  width: 237px;
+  border-color: #4fc3f7;
+  background-color: #4fc3f7;
 }
 
 .active-child {
