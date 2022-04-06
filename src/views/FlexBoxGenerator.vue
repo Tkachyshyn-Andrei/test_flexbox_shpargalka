@@ -6,8 +6,7 @@
       <div class="col-4 p-2">
         <div class="container-style h-100 ">
           <div class="button d-flex">
-            <div @click="addDiv">Add Child</div>
-            <div @click="deleteDiv">Delete Child</div>
+            <div @click="addChild">Add Child</div>
           </div>
           <div>
             <VSelect v-model="selectedPropertiesParent.display" :values="display" property="display"/>
@@ -41,12 +40,13 @@
       <div class="col-8 p-2">
         <div class="container-style mb-3">
           <div :style="parentStyle" class="parent-block">
-            <div v-for="n in items" :key="n" class="item"
-                 :class="{'active-child': n === activeIndex}"
-                 @click="setActiveIndex(n)"
-                 :style="setActiveChild(n)"
+            <div v-for="(item, index) in items" :key="index" :class="{'active-child': index === activeChild}"
+                 :style="setActiveChild(index)"
+                 class="item"
+                 @click="setActiveIndex(index)"
             >
-              Child {{ n }}
+              <i @click.stop="deleteChild(index)"/>
+              Child {{ index + 1}}
             </div>
           </div>
         </div>
@@ -74,8 +74,8 @@ export default {
   name: "FlexBoxGenerator",
   components: {VSelect},
   data: () => ({
-        activeIndex: '',
-        items: 4,
+        activeChild: '',
+        items: [],
         selectedPropertiesParent: {
           display: 'flex',
           flexDirection: 'row',
@@ -123,17 +123,18 @@ export default {
     },
   },
   methods: {
-    addDiv() {
-      this.items++;
+    addChild() {
+      this.items.push({...this.selectedPropertiesChild});
     },
-    deleteDiv() {
-      this.items--;
+    deleteChild(index) {
+      this.items.splice(index,1);
     },
-    setActiveIndex(n) {
-      this.activeIndex = n;
+
+    setActiveIndex(index) {
+      this.activeChild = index;
     },
-    setActiveChild(n) {
-      if (this.activeIndex === n) {
+    setActiveChild(index) {
+      if (this.activeChild === index) {
         return this.childStyle
       }
     }
@@ -164,6 +165,7 @@ h1 {
   min-height: 300px;
   border: 1px dotted #a6a6a6;
   background-color: rgb(240, 242, 243);
+  overflow: scroll;
 }
 
 .item {
@@ -174,7 +176,21 @@ h1 {
   border: 1px solid #fff;
   text-align: center;
   cursor: pointer;
+  position: relative;
 }
+
+.item i {
+  position: absolute;
+  top: -5px;
+  right: 1px;
+  font-size: 12px;
+  opacity: 1;
+}
+
+i:before {
+  content: "✖";
+}
+
 
 .button > div {
   border: 2px solid #4fc3f7;
