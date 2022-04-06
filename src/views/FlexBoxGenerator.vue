@@ -40,10 +40,10 @@
       <div class="col-8 p-2">
         <div class="container-style mb-3">
           <div :style="parentStyle" class="parent-block">
-            <div v-for="(item, index) in items" :key="index" :class="{'active-child': index === activeChild}"
-                 :style="setActiveChild(index)"
+            <div v-for="(item, index) in items" :key="index" :class="{'active-child': item === selectedPropertiesChild}"
+                 :style="getActiveChild(item)"
                  class="item"
-                 @click="setActiveIndex(index)"
+                 @click="selectActiveChild(item)"
             >
               <i @click.stop="deleteChild(index)"/>
               Child {{ index + 1}}
@@ -74,7 +74,7 @@ export default {
   name: "FlexBoxGenerator",
   components: {VSelect},
   data: () => ({
-        activeChild: '',
+        // activeChild: '',
         items: [],
         selectedPropertiesParent: {
           display: 'flex',
@@ -107,6 +107,7 @@ export default {
       }
   ),
   computed: {
+
     parentStyle() {
       return this.selectedPropertiesParent
     },
@@ -124,17 +125,17 @@ export default {
   },
   methods: {
     addChild() {
+      console.log(this.items.length)
       this.items.push({...this.selectedPropertiesChild});
     },
     deleteChild(index) {
       this.items.splice(index,1);
     },
-
-    setActiveIndex(index) {
-      this.activeChild = index;
+    selectActiveChild(item) {
+      this.selectedPropertiesChild = item;
     },
-    setActiveChild(index) {
-      if (this.activeChild === index) {
+    getActiveChild(item) {
+      if (this.selectedPropertiesChild === item) {
         return this.childStyle
       }
     }
