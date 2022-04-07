@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex mb-1">
     <div class="property-name">
-      {{ property }}: &nbsp;
+      {{ label }}
     </div>
     <select @change="switchSelect($event)">
       <option disabled value="">Виберіть один із варіантів</option>
@@ -16,13 +16,15 @@
 export default {
   name: "VSelect",
   props: {
-    property: {
+    label: {
       type: String,
     },
     values: {
       type: Array,
     },
-    value:{}
+    value: {
+      type: [Number, String]
+    }
   },
   methods: {
     switchSelect(event) {

@@ -9,23 +9,23 @@
             <div @click="addChild">Add Child</div>
           </div>
           <div>
-            <VSelect v-model="selectedPropertiesParent.display" :values="display" property="display"/>
-            <VSelect v-model="selectedPropertiesParent.flexDirection" :values="flexDirection"
-                     property="flex-direction"/>
-            <VSelect v-model="selectedPropertiesParent.flexWrap" :values="flexWrap" property="flex-wrap"/>
-            <VSelect v-model="selectedPropertiesParent.flexFlow" :values="flexFlow" property="flex-flow"/>
-            <VSelect v-model="selectedPropertiesParent.justifyContent" :values="justifyContent"
-                     property="justify-content"/>
-            <VSelect v-model="selectedPropertiesParent.alignItems" :values="alignItems" property="align-items"/>
-            <VSelect v-model="selectedPropertiesParent.alignContent" :values="alignContent" property="align-content"/>
+            <VSelect v-model="parentStyleProperties.display" :values="display" label="display"/>
+            <VSelect v-model="parentStyleProperties.flexDirection" :values="flexDirection"
+                     label="flex-direction"/>
+            <VSelect v-model="parentStyleProperties.flexWrap" :values="flexWrap" label="flex-wrap"/>
+<!--            <VSelect v-model="parentStyleProperties.flexFlow" :values="flexFlow" label="flex-flow"/>-->
+            <VSelect v-model="parentStyleProperties.justifyContent" :values="justifyContent"
+                     label="justify-content"/>
+            <VSelect v-model="parentStyleProperties.alignItems" :values="alignItems" label="align-items"/>
+            <VSelect v-model="parentStyleProperties.alignContent" :values="alignContent" label="align-content"/>
           </div>
-          <div v-if="showChildBlock" class="container-style child-block">
-            <div>Вибрано Child</div>
-            <VSelect v-model="selectedPropertiesChild.order" :values="order" property="order"/>
-            <VSelect v-model="selectedPropertiesChild.alignSelf" :values="alignSelf" property="align-self"/>
-            <VSelect v-model="selectedPropertiesChild.flexGrow" :values="flexGrow" property="flex-grow"/>
-            <VSelect v-model="selectedPropertiesChild.flexShrink" :values="flexShrink" property="flex-shrink"/>
-            <VSelect v-model="selectedPropertiesChild.flexBasis" :values="flexBasis" property="flex-basis"/>
+          <div v-if="activeChild" class="container-style child-block">
+            <div>Вибрано {{ activeChild.index + 1 }}</div>
+            <VSelect v-model="activeChild.order" :values="order" label="order"/>
+            <VSelect v-model="activeChild.alignSelf" :values="alignSelf" label="align-self"/>
+            <VSelect v-model="activeChild.flexGrow" :values="flexGrow" label="flex-grow"/>
+            <VSelect v-model="activeChild.flexShrink" :values="flexShrink" label="flex-shrink"/>
+            <VSelect v-model="activeChild.flexBasis" :values="flexBasis" label="flex-basis"/>
             <div class="mb-1">
               <label>width</label>
               <input placeholder="20px">
@@ -39,23 +39,25 @@
       </div>
       <div class="col-8 p-2">
         <div class="container-style mb-3">
+
           <div :style="parentStyle" class="parent-block">
-            <div v-for="(item, index) in items" :key="index" :class="{'active-child': item === selectedPropertiesChild}"
-                 :style="getActiveChild(item)"
+            <div v-for="(item, index) in items" :key="index" :class="{'active-child': item === activeChild}"
+                 :style="getChildStyle(item)"
                  class="item"
-                 @click="selectActiveChild(item)"
+                 @click="setActiveChild(item, index)"
             >
               <i @click.stop="deleteChild(index)"/>
-              Child {{ index + 1}}
+              Child {{ index + 1 }}
             </div>
           </div>
+
         </div>
         <div class="container-style code">
           <div>
             .parent
             <code style="white-space: pre" v-html="showParentStyle"/>
           </div>
-          <div v-if="showChildBlock">
+          <div v-if="showChildBlockStyle">
             .child
             <code style="white-space: pre" v-html="showChildStyle"/>
           </div>
@@ -72,51 +74,43 @@ export default {
   name: "FlexBoxGenerator",
   components: {VSelect},
   data: () => ({
-        items: [],
-        isChildBlockVisible: false,
-        selectedPropertiesParent: {
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'nowrap',
-          flexFlow: 'row nowrap',
-          justifyContent: 'flex-start',
-          alignItems: 'flex-start',
-          alignContent: 'flex-start',
-        },
-        selectedPropertiesChild: {
-          order: '0',
-          alignSelf: 'flex-start',
-          flexGrow: '0',
-          flexShrink: '0',
-          flexBasis: 'content',
-        },
-        display: ['flex', 'inline-flex'],
-        flexDirection: ['row', 'row-reverse', 'column', 'column-reverse'],
-        flexWrap: ['nowrap', 'wrap', 'wrap-reverse'],
-        flexFlow: ['row nowrap', 'column-reverse', 'column wrap', 'row-reverse wrap-reverse'],
-        order: ['-1', '0', '1'],
-        justifyContent: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly'],
-        alignItems: ['flex-start', 'flex-end', 'center', 'baseline', 'Stretch'],
-        alignSelf: ['flex-start', 'flex-end', 'center', 'baseline', 'Stretch'],
-        alignContent: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', 'stretch'],
-        flexGrow: ['0', '1'],
-        flexShrink: ['0', '1'],
-        flexBasis: ['30%', '50%', 'content'],
-      }
-  ),
+    items: [],
+    parentStyleProperties: {
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'nowrap',
+      // flexFlow: 'row nowrap',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      alignContent: 'flex-start',
+    },
+    activeChild: null,
+    display: ['flex', 'inline-flex'],
+    flexDirection: ['row', 'row-reverse', 'column', 'column-reverse'],
+    flexWrap: ['nowrap', 'wrap', 'wrap-reverse'],
+    // flexFlow: ['row nowrap', 'column-reverse', 'column wrap', 'row-reverse wrap-reverse'],
+    order: [-1, 0, 1],
+    justifyContent: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly'],
+    alignItems: ['flex-start', 'flex-end', 'center', 'baseline', 'stretch'],
+    alignSelf: ['flex-start', 'flex-end', 'center', 'baseline', 'stretch'],
+    alignContent: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', 'stretch'],
+    flexGrow: [0, 1],
+    flexShrink: [0, 1],
+    flexBasis: ['30%', '50%', 'content'],
+  }),
   computed: {
-    showChildBlock () {
-      return  this.items.length > 0
+    showChildBlockStyle() {
+      return this.items.length > 0
     },
     parentStyle() {
-      return this.selectedPropertiesParent
+      return this.parentStyleProperties
     },
     showParentStyle() {
       return Object.keys(this.parentStyle).reduce((acc, key) =>
           `${acc}\t${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()}: ${this.parentStyle[key]};\n`, `{\n`) + `}`
     },
     childStyle() {
-      return this.selectedPropertiesChild
+      return {}; //this.selectedPropertiesChild
     },
     showChildStyle() {
       return Object.keys(this.childStyle).reduce((acc, key) =>
@@ -125,18 +119,30 @@ export default {
   },
   methods: {
     addChild() {
-      this.items.push({...this.selectedPropertiesChild});
+      this.items.push({
+        order: 0,
+        alignSelf: 'flex-start',
+        flexGrow: 0,
+        flexShrink: 0,
+        flexBasis: 'content',
+      });
     },
     deleteChild(index) {
       this.items.splice(index, 1);
     },
-    selectActiveChild(item) {
-      this.selectedPropertiesChild = item;
+    setActiveChild(item, index) {
+      this.activeChild = item;
+      this.activeChild.index = index
     },
-    getActiveChild(item) {
-      if (this.selectedPropertiesChild === item) {
-        return this.childStyle
-      }
+    // getActiveChild(item) {
+    //   if (this.selectedPropertiesChild === item) {
+    //     return this.childStyle
+    //   }
+    // },
+    getChildStyle(child) {
+      // eslint-disable-next-line no-debugger
+      // debugger
+      return child
     }
   }
 }
@@ -165,7 +171,7 @@ h1 {
   min-height: 300px;
   border: 1px dotted #a6a6a6;
   background-color: rgb(240, 242, 243);
-  overflow: scroll;
+  overflow-x: auto;
 }
 
 .item {
@@ -191,7 +197,6 @@ i:before {
   content: "✖";
 }
 
-
 .button > div {
   border: 2px solid #4fc3f7;
   margin-bottom: 10px;
@@ -209,9 +214,11 @@ i:before {
 .child-block .property-name {
   min-width: 123px;
 }
+
 .container-style label{
   min-width: 123px;
 }
+
 .container-style input{
   width: 237px;
   border-color: #4fc3f7;

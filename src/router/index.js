@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Home from "@/views/Home";
 import GridGenerator from "@/views/GridGenerator";
 import FlexBox from "@/views/FlexBox";
 import FlexBoxGenerator from "@/views/FlexBoxGenerator";
@@ -12,25 +11,29 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
-            component: Home
+            redirect: '/grid-hint',
+            name: 'home'
+        },
+        {
+            path: '/grid-hint',
+            component: Hint,
+            name: 'grid-hint',
         },
         {
             path: '/grid-generator',
-            component: GridGenerator
-        },
-        {
-            path: '/hint',
-            component: Hint
+            component: GridGenerator,
+            name: 'grid-generator'
         },
         {
             path: '/flex-generator',
-            component: FlexBoxGenerator
+            component: FlexBoxGenerator,
+            name: 'flex-generator'
         },
         {
             path: '/flex-box',
-            component: FlexBox
-        }
-    ]
+            component: FlexBox,
+            name: 'flex-box'
+        }]
 
 })
 
