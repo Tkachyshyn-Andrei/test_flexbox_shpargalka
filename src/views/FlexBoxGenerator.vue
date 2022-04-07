@@ -19,7 +19,7 @@
             <VSelect v-model="selectedPropertiesParent.alignItems" :values="alignItems" property="align-items"/>
             <VSelect v-model="selectedPropertiesParent.alignContent" :values="alignContent" property="align-content"/>
           </div>
-          <div class="container-style child-block">
+          <div v-if="showChildBlock" class="container-style child-block">
             <div>Вибрано Child</div>
             <VSelect v-model="selectedPropertiesChild.order" :values="order" property="order"/>
             <VSelect v-model="selectedPropertiesChild.alignSelf" :values="alignSelf" property="align-self"/>
@@ -55,15 +55,13 @@
             .parent
             <code style="white-space: pre" v-html="showParentStyle"/>
           </div>
-          <div>
+          <div v-if="showChildBlock">
             .child
             <code style="white-space: pre" v-html="showChildStyle"/>
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -74,8 +72,8 @@ export default {
   name: "FlexBoxGenerator",
   components: {VSelect},
   data: () => ({
-        // activeChild: '',
         items: [],
+        isChildBlockVisible: false,
         selectedPropertiesParent: {
           display: 'flex',
           flexDirection: 'row',
@@ -107,7 +105,9 @@ export default {
       }
   ),
   computed: {
-
+    showChildBlock () {
+      return  this.items.length > 0
+    },
     parentStyle() {
       return this.selectedPropertiesParent
     },
@@ -125,11 +125,10 @@ export default {
   },
   methods: {
     addChild() {
-      console.log(this.items.length)
       this.items.push({...this.selectedPropertiesChild});
     },
     deleteChild(index) {
-      this.items.splice(index,1);
+      this.items.splice(index, 1);
     },
     selectActiveChild(item) {
       this.selectedPropertiesChild = item;
