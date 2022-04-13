@@ -26,14 +26,14 @@
             <VSelect v-model="activeChild.flexGrow" :values="flexGrow" label="flex-grow"/>
             <VSelect v-model="activeChild.flexShrink" :values="flexShrink" label="flex-shrink"/>
             <VSelect v-model="activeChild.flexBasis" :values="flexBasis" label="flex-basis"/>
-            <div class="mb-1 d-flex justify-content-between">
-              <label>width</label>
-              <input placeholder="20px">
-            </div>
-            <div class="d-flex justify-content-between">
-              <label>height</label>
-              <input placeholder="20px">
-            </div>
+<!--            <div class="mb-1 d-flex justify-content-between">-->
+<!--              <label>width</label>-->
+<!--              <input placeholder="20px">-->
+<!--            </div>-->
+<!--            <div class="d-flex justify-content-between">-->
+<!--              <label>height</label>-->
+<!--              <input placeholder="20px">-->
+<!--            </div>-->
           </div>
         </div>
       </div>
@@ -57,8 +57,8 @@
             .parent
             <code style="white-space: pre" v-html="showParentStyle"/>
           </div>
-          <div v-if="showChildBlockStyle">
-            .child
+          <div v-if="activeChild">
+            .child:nth-child({{ activeChild.index + 1 }})
             <code style="white-space: pre" v-html="showChildStyle"/>
           </div>
         </div>
@@ -110,7 +110,7 @@ export default {
           `${acc}\t${key.split(/(?=[A-Z])/).join(`-`).toLowerCase()}: ${this.parentStyle[key]};\n`, `{\n`) + `}`
     },
     childStyle() {
-      return {}; //this.selectedPropertiesChild
+      return this.activeChild //this.selectedPropertiesChild
     },
     showChildStyle() {
       return Object.keys(this.childStyle).reduce((acc, key) =>
@@ -140,8 +140,6 @@ export default {
     //   }
     // },
     getChildStyle(child) {
-      // eslint-disable-next-line no-debugger
-      // debugger
       return child
     }
   }
