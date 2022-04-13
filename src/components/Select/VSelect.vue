@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex mb-1">
+  <div class="d-flex mb-1 justify-content-between">
     <div class="property-name">
       {{ label }}
     </div>
@@ -35,10 +35,6 @@ export default {
 </script>
 
 <style scoped>
-.property-name {
-  min-width: 135px;
-}
-
 select {
   border: none;
   color: #2c3e50;

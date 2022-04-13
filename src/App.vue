@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col">
         <router-link to="/grid-generator"> Генератор Grid</router-link>
@@ -12,6 +12,9 @@
       </div>
       <div class="col">
         <router-link to="/flex-box">FlexBox шпаргалка</router-link>
+      </div>
+      <div class="col">
+        <router-link to="/VFlexExample">VFlexExample</router-link>
       </div>
     </div>
     <div class="row">

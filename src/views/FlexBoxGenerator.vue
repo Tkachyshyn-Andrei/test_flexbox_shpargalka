@@ -26,11 +26,11 @@
             <VSelect v-model="activeChild.flexGrow" :values="flexGrow" label="flex-grow"/>
             <VSelect v-model="activeChild.flexShrink" :values="flexShrink" label="flex-shrink"/>
             <VSelect v-model="activeChild.flexBasis" :values="flexBasis" label="flex-basis"/>
-            <div class="mb-1">
+            <div class="mb-1 d-flex justify-content-between">
               <label>width</label>
               <input placeholder="20px">
             </div>
-            <div>
+            <div class="d-flex justify-content-between">
               <label>height</label>
               <input placeholder="20px">
             </div>
@@ -81,8 +81,8 @@ export default {
       flexWrap: 'nowrap',
       // flexFlow: 'row nowrap',
       justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      alignContent: 'flex-start',
+      alignItems: 'stretch',
+      alignContent: 'stretch',
     },
     activeChild: null,
     display: ['flex', 'inline-flex'],
@@ -148,7 +148,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .container-fluid {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -175,7 +175,7 @@ h1 {
 }
 
 .item {
-  min-width: 2.5rem;
+  /*min-width: 2.5rem;*/
   padding: 0.5rem;
   background-color: #97dffa;
   background-repeat: no-repeat;
@@ -206,17 +206,8 @@ i:before {
 }
 
 .code {
-  font-size: 87.5%;
   color: #e83e8c;
   word-wrap: break-word;
-}
-
-.child-block .property-name {
-  min-width: 123px;
-}
-
-.container-style label{
-  min-width: 123px;
 }
 
 .container-style input{

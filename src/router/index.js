@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
+import VFlexExample from "@/views/VFlexExample";
 import GridGenerator from "@/views/GridGenerator";
 import FlexBox from "@/views/FlexBox";
 import FlexBoxGenerator from "@/views/FlexBoxGenerator";
@@ -33,6 +33,11 @@ const router = new VueRouter({
             path: '/flex-box',
             component: FlexBox,
             name: 'flex-box'
+        },
+        {
+            path: '/VFlexExample',
+            component: VFlexExample,
+            name: 'VFlexExample'
         }]
 
 })
