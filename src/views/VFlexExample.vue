@@ -136,13 +136,13 @@ export default {
 .square {
   height: 100%;
   padding: 10px;
-  background-color: yellow;
+  background-color: #97dffa;
 }
 
 .littleSquare {
   min-height: 50px;
   min-width: 50px;
-  background-color: red;
+  background-color: #4fc3f7;
 }
 
 input {
