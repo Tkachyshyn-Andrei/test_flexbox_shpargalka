@@ -8,7 +8,9 @@
                  :class="{'active-child': child === activeChild}"
                  :style="child.style.join(';')"
                  class="littleSquare m-2"
-                 @click="setActiveChild(child)"></div>
+                 @click="setActiveChild(child)">
+              <div class="deleteChild" @click.stop="deleteChild"></div>
+            </div>
           </div>
         </div>
         <div>
@@ -114,6 +116,9 @@ export default {
           {id: +(new Date()), style: ['']}
       )
     },
+    deleteChild() {
+      this.children.pop()
+    },
     setActiveChild(child) {
       this.activeChild = child
     },
@@ -156,5 +161,36 @@ input {
 .code {
   border: 1px solid;
   color: #d63384;
+}
+
+.deleteChild {
+  position: relative;
+  right: -30px;
+  opacity: 0.2;
+  cursor: pointer;
+  transition: opacity ease 0.5s;
+}
+
+.deleteChild:hover {
+  opacity: 1;
+}
+
+.deleteChild::before,
+.deleteChild::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  display: block;
+  width: 15px;
+  height: 3px;
+  background: #000;
+}
+
+.deleteChild::before {
+  transform: rotate(45deg);
+}
+
+.deleteChild::after {
+  transform: rotate(-45deg);
 }
 </style>
