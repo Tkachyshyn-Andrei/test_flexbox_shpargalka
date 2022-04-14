@@ -9,7 +9,7 @@
                  :style="child.style.join(';')"
                  class="littleSquare m-2"
                  @click="setActiveChild(child)">
-              <div class="deleteChild" @click.stop="deleteChild"></div>
+              <div class="deleteChild" @click.stop="deleteChild(index)"></div>
             </div>
           </div>
         </div>
@@ -116,8 +116,12 @@ export default {
           {id: +(new Date()), style: ['']}
       )
     },
-    deleteChild() {
-      this.children.pop()
+    deleteChild(index) {
+      if (this.children.indexOf(this.activeChild) === index) {
+        this.children.splice(index, 1)
+        this.activeChild = null
+      } else
+        this.children.splice(index, 1)
     },
     setActiveChild(child) {
       this.activeChild = child
@@ -128,7 +132,7 @@ export default {
     deleteInput() {
       this.activeChild.style.pop('')
     }
-  }
+  },
 }
 </script>
 
