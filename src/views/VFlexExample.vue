@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <div class="d-flex justify-content-between">
-      <div class="col-6">
+  <div class="generator-page">
+    <h1>Генератор Flexbox CSS</h1>
+    <hr>
+    <div class="row justify-content-around">
+      <div class="col-12 col-md-6 col-xl-5">
         <div class="parent-block">
           <div :style="parentStyle" class="square">
             <div v-for="(child, index) in children" :key="index"
@@ -14,36 +16,60 @@
           </div>
         </div>
         <div>
-          <select v-model="display">
-            <option v-for="value in styles.display" :key="value">{{ value }}</option>
-          </select>
-          <select v-model="justifyContent">
-            <option v-for="value in styles.justifyContent" :key="value">{{ value }}</option>
-          </select>
-          <select v-model="alignItems">
-            <option v-for="value in styles.alignItems" :key="value">{{ value }}</option>
-          </select>
-          <button @click="addChild">addChild</button>
-          <div v-if="activeChild">
-            <div>
-              <button @click="addInput">+</button>
-              <button @click="deleteInput">-</button>
+          <div class="select-parent-style p-2">
+            <div class="d-flex w-100 justify-content-between mb-1">
+              Select styles for square(parent)
+              <button @click="addChild">addChild</button>
             </div>
-            <div class="col-8">
+            <div>
+              <div class="mb-1 d-flex">
+                <div class="label">display:</div>
+                <select v-model="display">
+                  <option v-for="value in styles.display" :key="value">{{ value }}</option>
+                </select>
+              </div>
+              <div class="mb-1 d-flex">
+                <div class="label">justify-content:</div>
+                <select v-model="justifyContent">
+                  <option v-for="value in styles.justifyContent" :key="value">{{ value }}</option>
+                </select>
+              </div>
+              <div class="d-flex">
+                <div class="label">align-items:</div>
+                <select v-model="alignItems">
+                  <option v-for="value in styles.alignItems" :key="value">{{ value }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div v-if="activeChild" class="p-2 child-input-style">
+            <div class="d-flex">
+              <div class="w-75">
+                Input styles for rectangle(child)
+              </div>
+              <div class="w-25 buttons-input">
+                <button class="me-2" @click="addInput">+</button>
+                <button @click="deleteInput">-</button>
+              </div>
+            </div>
+            <div class="pt-1">
               <input v-for="(input, index) in activeChild.style" :key="index" :value="input"
                      @input="$set(activeChild.style,index, $event.target.value)"
+                     class="mb-1"
               />
             </div>
           </div>
         </div>
       </div>
-      <div class="col-6 code p-2">
-        <div>
-          .parent
-          <code style="white-space: pre" v-html="showParentStyle"/>
-        </div>
-        <div v-if="activeChild">
-          <code style="white-space: pre" v-html="showChildStyle"/>
+      <div class="col-12 col-md-6 col-xl-5 ">
+        <div class="code p-2">
+          <div>
+            .parent
+            <code style="white-space: pre" v-html="showParentStyle"/>
+          </div>
+          <div v-if="showChildStyle">
+            <code style="white-space: pre" v-html="showChildStyle"/>
+          </div>
         </div>
       </div>
     </div>
@@ -137,9 +163,20 @@ export default {
 </script>
 
 <style scoped>
+.generator-page {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  margin-top: 10px;
+}
+
+h1 {
+  text-align: center;
+}
+
 .parent-block {
   height: 500px;
-  width: 500px;
 }
 
 .square {
@@ -160,6 +197,7 @@ input {
 
 .active-child {
   background: green;
+  border: 2px solid black;
 }
 
 .code {
@@ -196,5 +234,33 @@ input {
 
 .deleteChild::after {
   transform: rotate(-45deg);
+}
+
+.child-input-style {
+  border: 2px solid #4fc3f7;
+}
+
+.buttons-input {
+  text-align: end;
+}
+
+.select-parent-style {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #4fc3f7;
+}
+
+button {
+  background-color: #97dffa;
+  border: none;
+  padding: 5px 10px;
+}
+
+.label {
+  width: 140px;
+}
+
+select {
+  width: 150px;
 }
 </style>
